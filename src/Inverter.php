@@ -30,7 +30,7 @@ class Inverter
      */
     public function hexToRGB(string $hex): array
     {
-        if (preg_match('/^#?(?=[0-9A-Fa-f]{3,6}$)(?:.{3}|.{6})$/', $hex)) {
+        if ($this->isValidColor($hex)) {
             switch (\strlen($hex)) {
                 case 3:
                     sscanf($hex, '%1x%1x%1x', $r, $g, $b);
@@ -47,6 +47,15 @@ class Inverter
             }
         }
         throw new InvalidColorFormatException('Invalid color format: ' . $hex);
+    }
+
+    /**
+     * @param string $color
+     * @return bool
+     */
+    public function isValidColor(string $color): bool
+    {
+        return (bool) preg_match('/^#?(?:[0-9a-fA-F]{3}){1,2}$/', $color);
     }
 
 }
