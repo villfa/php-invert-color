@@ -26,6 +26,10 @@ To run the test suite:
 ./vendor/bin/phpunit
 ```
 
+## Acknowledgement
+
+This library is a port of the JS package [invert-color](https://github.com/onury/invert-color).
+
 ## License
 
 [MIT](./LICENSE)
