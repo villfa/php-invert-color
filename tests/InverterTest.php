@@ -12,10 +12,10 @@ class InverterTest extends TestCase
     /**
      * @dataProvider colorProvider
      */
-    public function testInvertWhiteToBlack($color, $inverted)
+    public function testInvertColor($color, $expected)
     {
         $inverter = new Inverter();
-        $this->assertEquals($inverted, $inverter->invert($color));
+        $this->assertEquals($expected, $inverter->invert($color));
     }
 
     public function colorProvider()
@@ -102,6 +102,33 @@ class InverterTest extends TestCase
             ['#00000Z'],
             ['#00'],
             [''],
+        ];
+    }
+
+    /**
+     * @dataProvider blackOrWhiteProvider
+     */
+    public function testInvertColorToBlackOrWhite($color, $expected)
+    {
+        $inverter = new Inverter();
+        $this->assertEquals($expected, $inverter->invert($color, true));
+    }
+
+    public function blackOrWhiteProvider()
+    {
+        return [
+            ['#631746', '#ffffff'],
+            ['#655c42', '#ffffff'],
+            ['#166528', '#ffffff'],
+            ['#4c2946', '#ffffff'],
+            ['#002d26', '#ffffff'],
+            ['#000', '#ffffff'],
+            ['#e71398', '#000000'],
+            ['#3ab3af', '#000000'],
+            ['#76ff98', '#000000'],
+            ['#bbb962', '#000000'],
+            ['#52838b', '#000000'],
+            ['#fff', '#000000'],
         ];
     }
 
