@@ -1,0 +1,14 @@
+{
+    "name": "villfa/invert-color",
+    "description": "InvertColor - invert hex color code",
+    "license": ["MIT"],
+    "autoload": {
+        "psr-4": { "InvertColor\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "InvertColor\\Tests\\": "tests/" }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    }
+}
