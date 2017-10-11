@@ -19,11 +19,11 @@ composer require villfa/invert-color
 echo (new InvertColor\Inverter)->invert('#fff') // #000000;
 ```
 
-### Inverter::invert(string color[, bool bw])
+### Inverter::invert(string $color[, bool $bw])
 
-- **`color`**: `string`
+- **`$color`**: `string`
 Color in HEX string. Accepted formats: #000000, #000, 000000, 000
-- **`bw`**: `bool`
+- **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.
 
 
