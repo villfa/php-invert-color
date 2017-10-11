@@ -6,11 +6,18 @@ invert hex color code
 
 ## Installation
 
-TODO
+```sh
+composer require villfa/invert-color
+```
 
 ## Usage
 
-TODO
+```php
+<?php
+// include composer autoload file
+
+echo (new InvertColor\Inverter)->invert('#fff');
+```
 
 ## Tests
 
