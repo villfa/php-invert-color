@@ -9,7 +9,7 @@ class Inverter
 
     /**
      * @param string $color
-     * @param bool $bw
+     * @param bool   $bw
      * @return string
      */
     public function invert(string $color, bool $bw = false): string
@@ -36,18 +36,18 @@ class Inverter
     {
         if ($this->isValidColor($hex)) {
             switch (\strlen($hex)) {
-                case 3:
-                    sscanf($hex, '%1x%1x%1x', $r, $g, $b);
-                    return [$r * 17, $g * 17, $b * 17];
-                case 4:
-                    sscanf($hex, '#%1x%1x%1x', $r, $g, $b);
-                    return [$r * 17, $g * 17, $b * 17];
-                case 6:
-                    return sscanf($hex, '%2x%2x%2x');
-                case 7:
-                    return sscanf($hex, '#%2x%2x%2x');
-                default:
-                    break;
+            case 3:
+                sscanf($hex, '%1x%1x%1x', $r, $g, $b);
+                return [$r * 17, $g * 17, $b * 17];
+            case 4:
+                sscanf($hex, '#%1x%1x%1x', $r, $g, $b);
+                return [$r * 17, $g * 17, $b * 17];
+            case 6:
+                return sscanf($hex, '%2x%2x%2x');
+            case 7:
+                return sscanf($hex, '#%2x%2x%2x');
+            default:
+                break;
             }
         }
         throw new InvalidColorFormatException('Invalid color format: ' . $hex);
