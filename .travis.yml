@@ -12,5 +12,6 @@ before_script:
 
 script:
  - composer validate
+ - vendor/bin/parallel-lint src/ tests/
  - vendor/bin/phpunit
 
