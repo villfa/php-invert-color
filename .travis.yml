@@ -14,4 +14,5 @@ script:
  - composer validate
  - vendor/bin/parallel-lint src/ tests/
  - vendor/bin/phpunit
+ - vendor/bin/phpstan analyze src tests --level=7
 
