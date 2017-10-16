@@ -131,6 +131,4 @@ class InverterTest extends TestCase
             ['#fff', '#000000'],
         ];
     }
-
 }
-

@@ -78,6 +78,4 @@ class Inverter
         $luminance = self::getLuminance($rgb);
         return $luminance > $threshold ? '#000000' : '#ffffff';
     }
-
 }
-
