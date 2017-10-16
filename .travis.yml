@@ -15,4 +15,5 @@ script:
  - vendor/bin/parallel-lint src/ tests/
  - vendor/bin/phpunit
  - vendor/bin/phpstan analyze src tests --level=7
+ - vendor/bin/php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no .
 
