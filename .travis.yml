@@ -6,6 +6,10 @@ php:
  - 7.2
  - master
 
+matrix:
+  allow_failures:
+    - php: master
+
 before_script:
  - composer self-update
  - composer install
