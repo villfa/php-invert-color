@@ -4,6 +4,8 @@ namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
 
+define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
+
 class Inverter
 {
 
@@ -72,10 +74,9 @@ class Inverter
         return 0.2126 * $levels[0] + 0.7152 * $levels[1] + 0.0722 * $levels[2];
     }
 
-    private static function invertToBW(array $rgb)
+    private static function invertToBW(array $rgb): string
     {
-        $threshold = sqrt(1.05 * 0.05) - 0.05;
         $luminance = self::getLuminance($rgb);
-        return $luminance > $threshold ? '#000000' : '#ffffff';
+        return $luminance > THRESHOLD ? '#000000' : '#ffffff';
     }
 }
