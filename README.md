@@ -19,7 +19,7 @@ composer require villfa/invert-color
 echo (new InvertColor\Inverter)->invert('#fff') // #000000;
 ```
 
-### Inverter::invert(string $color[, bool $bw])
+### Inverter::invert(string $color[, bool $bw]): string
 
 - **`$color`**: `string`
 Color in HEX string. Accepted formats: #000000, #000, 000000, 000
@@ -35,7 +35,66 @@ $inverter->invert('#282b35'); // #d7d4ca
 
 // amplify to black or white
 $inverter->invert('#282b35', true); // #ffffff
+```
 
+### Inverter::isValidColor(string $color): bool
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+```php
+$inverter = new InvertColor\Inverter;
+
+$inverter->isValidColor('#000'); // true
+$inverter->isValidColor('#282b35'); // true
+$inverter->isValidColor('foo bar'); // false
+```
+
+### Inverter::hexToRGB(string $color): array
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+```php
+$inverter = new InvertColor\Inverter;
+
+$inverter->hexToRGB('#00ff00'); // [0, 255, 0]
+```
+
+### Inverter::getLuminance(string $color): float
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+```php
+$inverter = new InvertColor\Inverter;
+
+$inverter->getLuminance('#fff'); // 1
+$inverter->getLuminance('#000'); // 0
+```
+
+### Inverter::isBright(string $color): bool
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+```php
+$inverter = new InvertColor\Inverter;
+
+$inverter->isBright('#fff'); // true
+$inverter->isBright('#000'); // false
+```
+
+### Inverter::isDark(string $color): bool
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+```php
+$inverter = new InvertColor\Inverter;
+
+$inverter->isDark('#fff'); // false
+$inverter->isDark('#000'); // true
 ```
 
 ## Tests
@@ -48,6 +107,10 @@ To run the test suite:
 ## Acknowledgement
 
 This library is a port of the JS package [invert-color](https://github.com/onury/invert-color).
+
+More resources:
+* https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
+* https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color/3943023#3943023
 
 ## License
 
