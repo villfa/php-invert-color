@@ -16,10 +16,10 @@ class Inverter
      */
     public function invert(string $color, bool $bw = false): string
     {
-        list($r, $g, $b) = $this->hexToRGB($color);
         if ($bw) {
-            return self::invertToBW([$r, $g, $b]);
+            return $this->invertToBW($color);
         }
+        list($r, $g, $b) = $this->hexToRGB($color);
         return sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
     }
 
@@ -64,8 +64,13 @@ class Inverter
         return (bool) preg_match('/^#?(?:[0-9a-fA-F]{3}){1,2}$/', $color);
     }
 
-    private static function getLuminance(array $rgb): float
+    /**
+     * @param string $color
+     * @return float
+     */
+    public function getLuminance(string $color): float
     {
+        $rgb = $this->hexToRGB($color);
         $levels = [];
         foreach ($rgb as $i => $channel) {
             $coef = $channel / 255;
@@ -74,9 +79,9 @@ class Inverter
         return 0.2126 * $levels[0] + 0.7152 * $levels[1] + 0.0722 * $levels[2];
     }
 
-    private static function invertToBW(array $rgb): string
+    private function invertToBW(string $color): string
     {
-        $luminance = self::getLuminance($rgb);
+        $luminance = $this->getLuminance($color);
         return $luminance > THRESHOLD ? '#000000' : '#ffffff';
     }
 
@@ -86,8 +91,7 @@ class Inverter
      */
     public function isBright(string $color): bool
     {
-        $rgb = $this->hexToRGB($color);
-        $luminance = self::getLuminance($rgb);
+        $luminance = $this->getLuminance($color);
         return $luminance > THRESHOLD;
     }
 
