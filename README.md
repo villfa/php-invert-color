@@ -16,85 +16,42 @@ composer require villfa/invert-color
 <?php
 /* include composer autoload file */
 
-echo (new InvertColor\Inverter)->invert('#fff') // #000000;
+echo (new InvertColor\Inverter('#fff'))->invert() // #000000;
 ```
 
-### Inverter::invert(string $color[, bool $bw]): string
+### Inverter::invert([bool $bw]): string
 
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.
 
 
 ```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->invert('#000'); // #ffffff
-$inverter->invert('#282b35'); // #d7d4ca
+(new InvertColor\Inverter('#000'))->invert(); // #ffffff
+(new InvertColor\Inverter('#282b35'))->invert(); // #d7d4ca
 
 // amplify to black or white
-$inverter->invert('#282b35', true); // #ffffff
+(new InvertColor\Inverter('282b35'))->invert(); // #ffffff
 ```
 
-### Inverter::isValidColor(string $color): bool
-
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+### Inverter::getLuminance(): float
 
 ```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->isValidColor('#000'); // true
-$inverter->isValidColor('#282b35'); // true
-$inverter->isValidColor('foo bar'); // false
+(new InvertColor\Inverter('#fff'))->getLuminance(); // 1
+(new InvertColor\Inverter('#000'))->getLuminance(); // 0
 ```
 
-### Inverter::hexToRGB(string $color): array
-
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+### Inverter::isBright(): bool
 
 ```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->hexToRGB('#00ff00'); // [0, 255, 0]
+(new InvertColor\Inverter('#fff'))->isBright(); // true
+(new InvertColor\Inverter('#000'))->isBright(); // false
 ```
 
-### Inverter::getLuminance(string $color): float
-
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+### Inverter::isDark(): bool
 
 ```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->getLuminance('#fff'); // 1
-$inverter->getLuminance('#000'); // 0
-```
-
-### Inverter::isBright(string $color): bool
-
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
-
-```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->isBright('#fff'); // true
-$inverter->isBright('#000'); // false
-```
-
-### Inverter::isDark(string $color): bool
-
-- **`$color`**: `string`
-Color in HEX string. Accepted formats: #000000, #000, 000000, 000
-
-```php
-$inverter = new InvertColor\Inverter;
-
-$inverter->isDark('#fff'); // false
-$inverter->isDark('#000'); // true
+(new InvertColor\Inverter('#fff'))->isDark(); // false
+(new InvertColor\Inverter('#000'))->isDark(); // true
 ```
 
 ## Tests

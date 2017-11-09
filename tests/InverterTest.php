@@ -16,8 +16,8 @@ class InverterTest extends TestCase
      */
     public function testInvertColor($color, $expected)
     {
-        $inverter = new Inverter();
-        $this->assertEquals($expected, $inverter->invert($color));
+        $inverter = new Inverter($color);
+        $this->assertEquals($expected, $inverter->invert());
     }
 
     public function colorProvider()
@@ -92,9 +92,8 @@ class InverterTest extends TestCase
      */
     public function testExceptionWithInvalidFormat($color)
     {
-        $inverter = new Inverter();
         $this->expectException(InvalidColorFormatException::class);
-        $inverter->invert($color);
+        $inverter = new Inverter($color);
     }
 
     public function invalidColorProvider()
@@ -136,8 +135,8 @@ class InverterTest extends TestCase
      */
     public function testInvertColorToBlackOrWhite($color, $expected)
     {
-        $inverter = new Inverter();
-        $this->assertEquals($expected, $inverter->invert($color, true));
+        $inverter = new Inverter($color);
+        $this->assertEquals($expected, $inverter->invert(true));
     }
 
     public function blackOrWhiteProvider()
@@ -157,9 +156,9 @@ class InverterTest extends TestCase
      */
     public function testIsBrightOrDark($color, $expected)
     {
-        $inverter = new Inverter();
-        $this->assertEquals($expected, $inverter->isBright($color));
-        $this->assertEquals(!$expected, $inverter->isDark($color));
+        $inverter = new Inverter($color);
+        $this->assertEquals($expected, $inverter->isBright());
+        $this->assertEquals(!$expected, $inverter->isDark());
     }
 
     public function isBrightProvider()
