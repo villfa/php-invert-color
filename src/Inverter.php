@@ -17,7 +17,7 @@ class Inverter
     public function invert(string $color, bool $bw = false): string
     {
         if ($bw) {
-            return $this->invertToBW($color);
+            return $this->isBright($color) ? '#000000' : '#ffffff';
         }
         list($r, $g, $b) = $this->hexToRGB($color);
         return sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
@@ -30,29 +30,29 @@ class Inverter
     }
 
     /**
-     * @param string $hex
+     * @param string $color
      * @return int[]
      * @throws InvalidColorFormatException
      */
-    public function hexToRGB(string $hex): array
+    public function hexToRGB(string $color): array
     {
-        if ($this->isValidColor($hex)) {
-            switch (\strlen($hex)) {
+        if ($this->isValidColor($color)) {
+            switch (\strlen($color)) {
             case 3:
-                sscanf($hex, '%1x%1x%1x', $r, $g, $b);
+                sscanf($color, '%1x%1x%1x', $r, $g, $b);
                 return [$r * 17, $g * 17, $b * 17];
             case 4:
-                sscanf($hex, '#%1x%1x%1x', $r, $g, $b);
+                sscanf($color, '#%1x%1x%1x', $r, $g, $b);
                 return [$r * 17, $g * 17, $b * 17];
             case 6:
-                return sscanf($hex, '%2x%2x%2x');
+                return sscanf($color, '%2x%2x%2x');
             case 7:
-                return sscanf($hex, '#%2x%2x%2x');
+                return sscanf($color, '#%2x%2x%2x');
             default:
                 break;
             }
         }
-        throw new InvalidColorFormatException('Invalid color format: ' . $hex);
+        throw new InvalidColorFormatException('Invalid color format: ' . $color);
     }
 
     /**
@@ -77,12 +77,6 @@ class Inverter
             $levels[$i] = $coef <= 0.03928 ? $coef / 12.92 : (($coef + 0.055) / 1.055) ** 2.4;
         }
         return 0.2126 * $levels[0] + 0.7152 * $levels[1] + 0.0722 * $levels[2];
-    }
-
-    private function invertToBW(string $color): string
-    {
-        $luminance = $this->getLuminance($color);
-        return $luminance > THRESHOLD ? '#000000' : '#ffffff';
     }
 
     /**
