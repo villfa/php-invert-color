@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class InverterTest extends TestCase
 {
+    const BLACK = '#000000';
+    const WHITE = '#ffffff';
 
     /**
      * @dataProvider colorProvider
@@ -105,6 +107,30 @@ class InverterTest extends TestCase
         ];
     }
 
+    public function getBrightColors()
+    {
+        return [
+            '#e71398',
+            '#3ab3af',
+            '#76ff98',
+            '#bbb962',
+            '#52838b',
+            '#fff',
+        ];
+    }
+
+    public function getDarkColors()
+    {
+        return [
+            '#631746',
+            '#655c42',
+            '#166528',
+            '#4c2946',
+            '#002d26',
+            '#000',
+        ];
+    }
+
     /**
      * @dataProvider blackOrWhiteProvider
      */
@@ -116,19 +142,35 @@ class InverterTest extends TestCase
 
     public function blackOrWhiteProvider()
     {
-        return [
-            ['#631746', '#ffffff'],
-            ['#655c42', '#ffffff'],
-            ['#166528', '#ffffff'],
-            ['#4c2946', '#ffffff'],
-            ['#002d26', '#ffffff'],
-            ['#000', '#ffffff'],
-            ['#e71398', '#000000'],
-            ['#3ab3af', '#000000'],
-            ['#76ff98', '#000000'],
-            ['#bbb962', '#000000'],
-            ['#52838b', '#000000'],
-            ['#fff', '#000000'],
-        ];
+        return array_merge(
+            array_map(function ($color) {
+                return [$color, self::BLACK];
+            }, $this->getBrightColors()),
+            array_map(function ($color) {
+                return [$color, self::WHITE];
+            }, $this->getDarkColors())
+        );
+    }
+
+    /**
+     * @dataProvider isBrightProvider
+     */
+    public function testIsBrightOrDark($color, $expected)
+    {
+        $inverter = new Inverter();
+        $this->assertEquals($expected, $inverter->isBright($color));
+        $this->assertEquals(!$expected, $inverter->isDark($color));
+    }
+
+    public function isBrightProvider()
+    {
+        return array_merge(
+            array_map(function ($color) {
+                return [$color, true];
+            }, $this->getBrightColors()),
+            array_map(function ($color) {
+                return [$color, false];
+            }, $this->getDarkColors())
+        );
     }
 }

@@ -79,4 +79,24 @@ class Inverter
         $luminance = self::getLuminance($rgb);
         return $luminance > THRESHOLD ? '#000000' : '#ffffff';
     }
+
+    /**
+     * @param string $color
+     * @return bool
+     */
+    public function isBright(string $color): bool
+    {
+        $rgb = $this->hexToRGB($color);
+        $luminance = self::getLuminance($rgb);
+        return $luminance > THRESHOLD;
+    }
+
+    /**
+     * @param string $color
+     * @return bool
+     */
+    public function isDark(string $color): bool
+    {
+        return !$this->isBright($color);
+    }
 }
