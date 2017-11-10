@@ -39,7 +39,7 @@ class Color
         $hexLength = \strlen($hex);
         $isValid = ($regex = self::REGEX_BY_LENGTH[$hexLength] ?? null) && \preg_match($regex, $hex, $match);
         if (!$isValid) {
-            throw new InvalidColorFormatException('Invalid color format: ' . $hex);
+            throw new InvalidColorFormatException($hex);
         }
         return $hexLength > 4 ? [
             \hexdec($match[1]),
