@@ -28,6 +28,9 @@
         "sort-packages": true
     },
     "prefer-stable": true,
+    "require": {
+        "php": "^7.1"
+    },
     "require-dev": {
         "phpstan/phpstan": "^0.8.5",
         "phpunit/phpunit": "^6.4",

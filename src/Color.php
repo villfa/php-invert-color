@@ -8,6 +8,13 @@ define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
 
 class Color
 {
+    private const REGEX_BY_LENGTH = [
+        3 => '/^([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/',
+        4 => '/^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/',
+        6 => '/^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/',
+        7 => '/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/',
+    ];
+
     /**
      * @var array
      */
@@ -29,32 +36,20 @@ class Color
      */
     private function hexToRGB(string $hex): array
     {
-        if ($this->isValidColor($hex)) {
-            switch (\strlen($hex)) {
-            case 3:
-                sscanf($hex, '%1x%1x%1x', $r, $g, $b);
-                return [$r * 17, $g * 17, $b * 17];
-            case 4:
-                sscanf($hex, '#%1x%1x%1x', $r, $g, $b);
-                return [$r * 17, $g * 17, $b * 17];
-            case 6:
-                return sscanf($hex, '%2x%2x%2x');
-            case 7:
-                return sscanf($hex, '#%2x%2x%2x');
-            default:
-                break;
-            }
+        $hexLength = \strlen($hex);
+        $isValid = ($regex = self::REGEX_BY_LENGTH[$hexLength] ?? null) && \preg_match($regex, $hex, $match);
+        if (!$isValid) {
+            throw new InvalidColorFormatException('Invalid color format: ' . $hex);
         }
-        throw new InvalidColorFormatException('Invalid color format: ' . $hex);
-    }
-
-    /**
-     * @param string $hex
-     * @return bool
-     */
-    private function isValidColor(string $hex): bool
-    {
-        return (bool) preg_match('/^#?(?:[0-9a-fA-F]{3}){1,2}$/', $hex);
+        return $hexLength > 4 ? [
+            \hexdec($match[1]),
+            \hexdec($match[2]),
+            \hexdec($match[3]),
+        ] : [
+            \hexdec($match[1].$match[1]),
+            \hexdec($match[2].$match[2]),
+            \hexdec($match[3].$match[3]),
+        ];
     }
 
     /**

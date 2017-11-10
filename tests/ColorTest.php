@@ -8,8 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class ColorTest extends TestCase
 {
-    const BLACK = '#000000';
-    const WHITE = '#ffffff';
+    private const BLACK = '#000000';
+    private const WHITE = '#ffffff';
 
     /**
      * @dataProvider colorProvider
