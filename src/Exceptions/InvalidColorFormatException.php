@@ -2,7 +2,7 @@
 
 namespace InvertColor\Exceptions;
 
-class InvalidColorFormatException extends \Exception
+class InvalidColorFormatException extends \UnexpectedValueException
 {
     /**
      * @var string
