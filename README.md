@@ -1,6 +1,8 @@
 # php-invert-color
 
 [![Build Status](https://secure.travis-ci.org/villfa/php-invert-color.png?branch=master)](http://travis-ci.org/villfa/php-invert-color)
+[![Latest Stable Version](https://poser.pugx.org/villfa/invert-color/v/stable)](https://packagist.org/packages/villfa/invert-color)
+[![License](https://poser.pugx.org/villfa/invert-color/license)](https://packagist.org/packages/villfa/invert-color)
 
 invert hex color code
 
