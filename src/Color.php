@@ -4,7 +4,7 @@ namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
 
-define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
+\define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
 
 class Color
 {
@@ -62,13 +62,13 @@ class Color
             return $this->isBright() ? '#000000' : '#ffffff';
         }
         list($r, $g, $b) = $this->rgb;
-        return sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
+        return \sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
     }
 
     private static function inv(int $channel): string
     {
-        $inverted = dechex(255 - $channel);
-        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
+        $inverted = \dechex(255 - $channel);
+        return \str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 
     /**
