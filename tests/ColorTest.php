@@ -3,10 +3,10 @@
 namespace InvertColor\Tests;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
-use InvertColor\Inverter;
+use InvertColor\Color;
 use PHPUnit\Framework\TestCase;
 
-class InverterTest extends TestCase
+class ColorTest extends TestCase
 {
     const BLACK = '#000000';
     const WHITE = '#ffffff';
@@ -14,10 +14,10 @@ class InverterTest extends TestCase
     /**
      * @dataProvider colorProvider
      */
-    public function testInvertColor($color, $expected)
+    public function testInvertColor($hex, $expected)
     {
-        $inverter = new Inverter($color);
-        $this->assertEquals($expected, $inverter->invert());
+        $color = new Color($hex);
+        $this->assertEquals($expected, $color->invert());
     }
 
     public function colorProvider()
@@ -90,10 +90,10 @@ class InverterTest extends TestCase
     /**
      * @dataProvider invalidColorProvider
      */
-    public function testExceptionWithInvalidFormat($color)
+    public function testExceptionWithInvalidFormat($hex)
     {
         $this->expectException(InvalidColorFormatException::class);
-        $inverter = new Inverter($color);
+        new Color($hex);
     }
 
     public function invalidColorProvider()
@@ -133,20 +133,20 @@ class InverterTest extends TestCase
     /**
      * @dataProvider blackOrWhiteProvider
      */
-    public function testInvertColorToBlackOrWhite($color, $expected)
+    public function testInvertColorToBlackOrWhite($hex, $expected)
     {
-        $inverter = new Inverter($color);
-        $this->assertEquals($expected, $inverter->invert(true));
+        $color = new Color($hex);
+        $this->assertEquals($expected, $color->invert(true));
     }
 
     public function blackOrWhiteProvider()
     {
         return array_merge(
-            array_map(function ($color) {
-                return [$color, self::BLACK];
+            array_map(function ($hex) {
+                return [$hex, self::BLACK];
             }, $this->getBrightColors()),
-            array_map(function ($color) {
-                return [$color, self::WHITE];
+            array_map(function ($hex) {
+                return [$hex, self::WHITE];
             }, $this->getDarkColors())
         );
     }
@@ -154,21 +154,21 @@ class InverterTest extends TestCase
     /**
      * @dataProvider isBrightProvider
      */
-    public function testIsBrightOrDark($color, $expected)
+    public function testIsBrightOrDark($hex, $expected)
     {
-        $inverter = new Inverter($color);
-        $this->assertEquals($expected, $inverter->isBright());
-        $this->assertEquals(!$expected, $inverter->isDark());
+        $color = new Color($hex);
+        $this->assertEquals($expected, $color->isBright());
+        $this->assertEquals(!$expected, $color->isDark());
     }
 
     public function isBrightProvider()
     {
         return array_merge(
-            array_map(function ($color) {
-                return [$color, true];
+            array_map(function ($hex) {
+                return [$hex, true];
             }, $this->getBrightColors()),
-            array_map(function ($color) {
-                return [$color, false];
+            array_map(function ($hex) {
+                return [$hex, false];
             }, $this->getDarkColors())
         );
     }

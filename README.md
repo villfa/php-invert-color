@@ -16,42 +16,42 @@ composer require villfa/invert-color
 <?php
 /* include composer autoload file */
 
-echo (new InvertColor\Inverter('#fff'))->invert() // #000000;
+echo (new InvertColor\Color('#fff'))->invert() // #000000;
 ```
 
-### Inverter::invert([bool $bw]): string
+### Color::invert([bool $bw]): string
 
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.
 
 
 ```php
-(new InvertColor\Inverter('#000'))->invert(); // #ffffff
-(new InvertColor\Inverter('#282b35'))->invert(); // #d7d4ca
+(new InvertColor\Color('#000'))->invert(); // #ffffff
+(new InvertColor\Color('#282b35'))->invert(); // #d7d4ca
 
 // amplify to black or white
-(new InvertColor\Inverter('282b35'))->invert(); // #ffffff
+(new InvertColor\Color('282b35'))->invert(); // #ffffff
 ```
 
-### Inverter::getLuminance(): float
+### Color::getLuminance(): float
 
 ```php
-(new InvertColor\Inverter('#fff'))->getLuminance(); // 1
-(new InvertColor\Inverter('#000'))->getLuminance(); // 0
+(new InvertColor\Color('#fff'))->getLuminance(); // 1
+(new InvertColor\Color('#000'))->getLuminance(); // 0
 ```
 
-### Inverter::isBright(): bool
+### Color::isBright(): bool
 
 ```php
-(new InvertColor\Inverter('#fff'))->isBright(); // true
-(new InvertColor\Inverter('#000'))->isBright(); // false
+(new InvertColor\Color('#fff'))->isBright(); // true
+(new InvertColor\Color('#000'))->isBright(); // false
 ```
 
-### Inverter::isDark(): bool
+### Color::isDark(): bool
 
 ```php
-(new InvertColor\Inverter('#fff'))->isDark(); // false
-(new InvertColor\Inverter('#000'))->isDark(); // true
+(new InvertColor\Color('#fff'))->isDark(); // false
+(new InvertColor\Color('#000'))->isDark(); // true
 ```
 
 ## Tests

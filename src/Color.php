@@ -6,7 +6,7 @@ use InvertColor\Exceptions\InvalidColorFormatException;
 
 define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
 
-class Inverter
+class Color
 {
     /**
      * @var array
@@ -14,47 +14,47 @@ class Inverter
     private $rgb;
 
     /**
-     * @param string $color
+     * @param string $hex
      * @throws InvalidColorFormatException
      */
-    public function __construct(string $color)
+    public function __construct(string $hex)
     {
-        $this->rgb = $this->hexToRGB($color);
+        $this->rgb = $this->hexToRGB($hex);
     }
 
     /**
-     * @param string $color
+     * @param string $hex
      * @return int[]
      * @throws InvalidColorFormatException
      */
-    private function hexToRGB(string $color): array
+    private function hexToRGB(string $hex): array
     {
-        if ($this->isValidColor($color)) {
-            switch (\strlen($color)) {
+        if ($this->isValidColor($hex)) {
+            switch (\strlen($hex)) {
             case 3:
-                sscanf($color, '%1x%1x%1x', $r, $g, $b);
+                sscanf($hex, '%1x%1x%1x', $r, $g, $b);
                 return [$r * 17, $g * 17, $b * 17];
             case 4:
-                sscanf($color, '#%1x%1x%1x', $r, $g, $b);
+                sscanf($hex, '#%1x%1x%1x', $r, $g, $b);
                 return [$r * 17, $g * 17, $b * 17];
             case 6:
-                return sscanf($color, '%2x%2x%2x');
+                return sscanf($hex, '%2x%2x%2x');
             case 7:
-                return sscanf($color, '#%2x%2x%2x');
+                return sscanf($hex, '#%2x%2x%2x');
             default:
                 break;
             }
         }
-        throw new InvalidColorFormatException('Invalid color format: ' . $color);
+        throw new InvalidColorFormatException('Invalid color format: ' . $hex);
     }
 
     /**
-     * @param string $color
+     * @param string $hex
      * @return bool
      */
-    private function isValidColor(string $color): bool
+    private function isValidColor(string $hex): bool
     {
-        return (bool) preg_match('/^#?(?:[0-9a-fA-F]{3}){1,2}$/', $color);
+        return (bool) preg_match('/^#?(?:[0-9a-fA-F]{3}){1,2}$/', $hex);
     }
 
     /**
@@ -70,9 +70,9 @@ class Inverter
         return sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
     }
 
-    private static function inv(int $color): string
+    private static function inv(int $channel): string
     {
-        $inverted = dechex(255 - $color);
+        $inverted = dechex(255 - $channel);
         return str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 
