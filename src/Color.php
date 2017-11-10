@@ -4,7 +4,8 @@ namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
 
-\define('THRESHOLD', sqrt(1.05 * 0.05) - 0.05);
+// sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
+\define('LUMINANCE_THRESHOLD', 0.17912878474779);
 
 class Color
 {
@@ -73,6 +74,7 @@ class Color
 
     /**
      * @return float
+     * @link https://www.w3.org/TR/WCAG20/relative-luminance.xml
      */
     public function getLuminance(): float
     {
@@ -89,7 +91,7 @@ class Color
      */
     public function isBright(): bool
     {
-        return $this->getLuminance() > THRESHOLD;
+        return $this->getLuminance() > LUMINANCE_THRESHOLD;
     }
 
     /**
