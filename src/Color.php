@@ -62,8 +62,10 @@ class Color
         if ($bw) {
             return $this->isBright() ? '#000000' : '#ffffff';
         }
-        list($r, $g, $b) = $this->rgb;
-        return \sprintf('#%s%s%s', self::inv($r), self::inv($g), self::inv($b));
+        return '#'.
+            self::inv($this->rgb[0]).
+            self::inv($this->rgb[1]).
+            self::inv($this->rgb[2]);
     }
 
     private static function inv(int $channel): string
