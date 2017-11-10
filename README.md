@@ -18,7 +18,21 @@ composer require villfa/invert-color
 <?php
 /* include composer autoload file */
 
-echo (new InvertColor\Color('#fff'))->invert() // #000000;
+echo InvertColor\Color::fromHex('#fff')->invert() // #000000;
+```
+
+### Color::fromHex(string $color): Color
+
+- **`$color`**: `string`
+Color in HEX string. Accepted formats: #000000, #000, 000000, 000
+
+### Color::fromRGB(array $rgb): Color
+
+- **`$rgb`**: `array`
+Color as an array of RGB values.
+
+```php
+InvertColor\Color::fromRGB([0, 255, 0])->invert(); // #ff00ff
 ```
 
 ### Color::invert([bool $bw]): string
@@ -28,32 +42,52 @@ Optional. A boolean value indicating whether the output should be amplified to b
 
 
 ```php
-(new InvertColor\Color('#000'))->invert(); // #ffffff
-(new InvertColor\Color('#282b35'))->invert(); // #d7d4ca
+InvertColor\Color::fromHex('#000')->invert(); // #ffffff
+InvertColor\Color::fromHex('#282b35')->invert(); // #d7d4ca
 
 // amplify to black or white
-(new InvertColor\Color('282b35'))->invert(); // #ffffff
+InvertColor\Color::fromHex('282b35')->invert(true); // #ffffff
+```
+
+### Color::invert([bool $bw]): string
+
+- **`$bw`**: `bool`
+Optional. A boolean value indicating whether the output should be amplified to black or white, according to the luminance of the original color.
+
+
+```php
+InvertColor\Color::fromHex('#000')->invertAsRGB(); // [255, 255, 255]
+InvertColor\Color::fromHex('#282b35')->invertAsRGB(); // [215, 212, 202]
+
+// amplify to black or white
+InvertColor\Color::fromHex('282b35')->invertAsRGB(true); // [255, 255, 255]
+```
+
+### Color::getRGB(): array
+
+```php
+InvertColor\Color::fromHex('#fff')->getRGB(); // [255, 255, 255]
 ```
 
 ### Color::getLuminance(): float
 
 ```php
-(new InvertColor\Color('#fff'))->getLuminance(); // 1
-(new InvertColor\Color('#000'))->getLuminance(); // 0
+InvertColor\Color::fromHex('#fff')->getLuminance(); // 1
+InvertColor\Color::fromHex('#000')->getLuminance(); // 0
 ```
 
 ### Color::isBright(): bool
 
 ```php
-(new InvertColor\Color('#fff'))->isBright(); // true
-(new InvertColor\Color('#000'))->isBright(); // false
+InvertColor\Color::fromHex('#fff')->isBright(); // true
+InvertColor\Color::fromHex('#000')->isBright(); // false
 ```
 
 ### Color::isDark(): bool
 
 ```php
-(new InvertColor\Color('#fff'))->isDark(); // false
-(new InvertColor\Color('#000'))->isDark(); // true
+InvertColor\Color::fromHex('#fff')->isDark(); // false
+InvertColor\Color::fromHex('#000')->isDark(); // true
 ```
 
 ## Tests

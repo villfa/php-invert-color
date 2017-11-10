@@ -3,6 +3,7 @@
 namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
+use InvertColor\Exceptions\InvalidRGBException;
 
 // sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
 \define('LUMINANCE_THRESHOLD', 0.17912878474779);
@@ -22,20 +23,41 @@ class Color
     private $rgb;
 
     /**
+     * @static
      * @param string $hex
      * @throws InvalidColorFormatException
      */
-    public function __construct(string $hex)
+    public static function fromHex(string $hex): self
     {
-        $this->rgb = $this->hexToRGB($hex);
+        return new self(self::hexToRGB($hex));
     }
 
     /**
+     * @static
+     * @param array $rgb
+     * @throws InvalidRGBException
+     */
+    public static function fromRGB(array $rgb): self
+    {
+        self::checkRGB($rgb);
+        return new self($rgb);
+    }
+
+    /**
+     * @param array $rgb
+     */
+    private function __construct(array $rgb)
+    {
+        $this->rgb = $rgb;
+    }
+
+    /**
+     * @static
      * @param string $hex
      * @return int[]
      * @throws InvalidColorFormatException
      */
-    private function hexToRGB(string $hex): array
+    private static function hexToRGB(string $hex): array
     {
         $hexLength = \strlen($hex);
         $isValid = ($regex = self::REGEX_BY_LENGTH[$hexLength] ?? null) && \preg_match($regex, $hex, $match);
@@ -54,6 +76,33 @@ class Color
     }
 
     /**
+     * @static
+     * @throws InvalidRGBException
+     */
+    private static function checkRGB(array $rgb)
+    {
+        if (\count($rgb) !== 3) {
+            throw new InvalidRGBException('must contain 3 values exactly', $rgb);
+        } elseif (!isset($rgb[0]) || !isset($rgb[1]) || !isset($rgb[2])) {
+            throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
+        } elseif (!is_int($rgb[0]) || !is_int($rgb[1]) || !is_int($rgb[2])) {
+            throw new InvalidRGBException('values must be integers', $rgb);
+        } elseif ($rgb[0] < 0 || $rgb[1] < 0 || $rgb[2] < 0) {
+            throw new InvalidRGBException('values must be greater or equal to 0', $rgb);
+        } elseif ($rgb[0] > 255 || $rgb[1] > 255 || $rgb[2] > 255) {
+            throw new InvalidRGBException('values must be lesser or equal to 255', $rgb);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getRGB(): array
+    {
+        return $this->rgb;
+    }
+
+    /**
      * @param bool $bw
      * @return string
      */
@@ -66,6 +115,22 @@ class Color
             self::inv($this->rgb[0]).
             self::inv($this->rgb[1]).
             self::inv($this->rgb[2]);
+    }
+
+    /**
+     * @param bool $bw
+     * @return array
+     */
+    public function invertAsRGB(bool $bw = false): array
+    {
+        if ($bw) {
+            return $this->isBright() ? [0, 0, 0] : [255, 255, 255];
+        }
+        return [
+            255 - $this->rgb[0],
+            255 - $this->rgb[1],
+            255 - $this->rgb[2],
+        ];
     }
 
     private static function inv(int $channel): string
