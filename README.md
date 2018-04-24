@@ -66,7 +66,7 @@ InvertColor\Color::fromHex('282b35')->invertAsRGB(true); // [255, 255, 255]
 ### Color::getHex(): string
 
 ```php
-InvertColor\Color::fromHex('#FFF')->getHex(); #ffffff
+InvertColor\Color::fromHex('#FFF')->getHex(); // #ffffff
 ```
 
 ### Color::getRGB(): array
