@@ -49,7 +49,7 @@ InvertColor\Color::fromHex('#282b35')->invert(); // #d7d4ca
 InvertColor\Color::fromHex('282b35')->invert(true); // #ffffff
 ```
 
-### Color::invert([bool $bw]): string
+### Color::invertAsRGB([bool $bw]): array
 
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black or white, according to the luminance of the original color.
