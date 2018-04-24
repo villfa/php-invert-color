@@ -18,7 +18,7 @@ composer require villfa/invert-color
 <?php
 /* include composer autoload file */
 
-echo InvertColor\Color::fromHex('#fff')->invert() // #000000;
+echo InvertColor\Color::fromHex('#fff')->invert(); // #000000
 ```
 
 ### Color::fromHex(string $color): Color
