@@ -98,9 +98,9 @@ InvertColor\Color::fromHex('#000')->isDark(); // true
 
 ## Tests
 
-To run the test suite:
+To validate and test the library:
 ```sh
-./vendor/bin/phpunit
+composer run-script test
 ```
 
 ## Acknowledgement
