@@ -5,11 +5,11 @@ namespace InvertColor;
 use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
 
-// sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
-\define('LUMINANCE_THRESHOLD', 0.17912878474779);
-
 class Color
 {
+    // sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
+    public const LUMINANCE_THRESHOLD = 0.17912878474779;
+
     private const REGEX_BY_LENGTH = [
         3 => '/^([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/',
         4 => '/^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/',
@@ -166,7 +166,7 @@ class Color
      */
     public function isBright(): bool
     {
-        return $this->getLuminance() > LUMINANCE_THRESHOLD;
+        return $this->getLuminance() > self::LUMINANCE_THRESHOLD;
     }
 
     /**
@@ -174,6 +174,6 @@ class Color
      */
     public function isDark(): bool
     {
-        return !$this->isBright();
+        return $this->getLuminance() <= self::LUMINANCE_THRESHOLD;
     }
 }
