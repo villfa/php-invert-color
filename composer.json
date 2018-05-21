@@ -45,5 +45,8 @@
             "phpstan analyze src tests --level=7",
             "php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
         ]
+    },
+    "scripts-descriptions": {
+        "test": "Validate and test the whole library."
     }
 }
