@@ -7,7 +7,12 @@ use InvertColor\Exceptions\InvalidRGBException;
 
 class Color
 {
-    // sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
+    /**
+     * Threshold used to determinate if a color is bright or dark.
+     *
+     * The value comes from the following formula:
+     * sqrt(1.05 * 0.05) - 0.05 = 0.17912878474779
+     */
     public const LUMINANCE_THRESHOLD = 0.17912878474779;
 
     private const REGEX_BY_LENGTH = [
@@ -102,6 +107,9 @@ class Color
         return $this->rgb;
     }
 
+    /**
+     * @return string
+     */
     public function getHex(): string
     {
         return '#'.
@@ -139,6 +147,15 @@ class Color
             255 - $this->rgb[1],
             255 - $this->rgb[2],
         ];
+    }
+
+    /**
+     * @param bool $bw
+     * @return self
+     */
+    public function invertAsObj(bool $bw = false): self
+    {
+        return new self($this->invertAsRGB($bw));
     }
 
     private static function inv(int $channel): string

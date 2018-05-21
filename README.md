@@ -63,6 +63,22 @@ InvertColor\Color::fromHex('#282b35')->invertAsRGB(); // [215, 212, 202]
 InvertColor\Color::fromHex('282b35')->invertAsRGB(true); // [255, 255, 255]
 ```
 
+### Color::invertAsObj([bool $bw]): Color
+
+- **`$bw`**: `bool`
+Optional. A boolean value indicating whether the output should be amplified to black or white, according to the luminance of the original color.
+
+
+```php
+InvertColor\Color::fromHex('#000')->invertAsObj()->getHex(); // #ffffff
+InvertColor\Color::fromHex('#282b35')->invertAsObj()->getRGB(); // [215, 212, 202]
+
+// amplify to black or white
+InvertColor\Color::fromHex('282b35')->invertAsObj(true)->getRGB(); // [255, 255, 255]
+
+```
+
+
 ### Color::getHex(): string
 
 ```php

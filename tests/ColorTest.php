@@ -21,6 +21,25 @@ class ColorTest extends TestCase
         $this->assertEquals($expected, $color->invert());
     }
 
+    /**
+     * @dataProvider colorProvider
+     */
+    public function testInvertColorAsRGB($hex, $expected)
+    {
+        $color = Color::fromHex($hex);
+        $invertedColor = $color->invertAsRGB();
+        $this->assertEquals($expected, Color::fromRGB($invertedColor)->getHex());
+    }
+
+    /**
+     * @dataProvider colorProvider
+     */
+    public function testInvertColorAsObj($hex, $expected)
+    {
+        $color = Color::fromHex($hex);
+        $this->assertEquals($expected, $color->invertAsObj()->getHex());
+    }
+
     public function colorProvider()
     {
         return [
