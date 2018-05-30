@@ -84,7 +84,7 @@ class Color
      * @static
      * @throws InvalidRGBException
      */
-    private static function checkRGB(array $rgb)
+    private static function checkRGB(array $rgb): void
     {
         if (\count($rgb) !== 3) {
             throw new InvalidRGBException('must contain 3 values exactly', $rgb);
