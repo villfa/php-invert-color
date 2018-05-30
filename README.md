@@ -21,12 +21,12 @@ composer require villfa/invert-color
 echo InvertColor\Color::fromHex('#fff')->invert(); // #000000
 ```
 
-### Color::fromHex(string $color): Color
+### `Color::fromHex(string $color): Color`
 
 - **`$color`**: `string`
 Color in HEX string. Accepted formats: #000000, #000, 000000, 000
 
-### Color::fromRGB(array $rgb): Color
+### `Color::fromRGB(array $rgb): Color`
 
 - **`$rgb`**: `array`
 Color as an array of RGB values.
@@ -35,7 +35,7 @@ Color as an array of RGB values.
 InvertColor\Color::fromRGB([0, 255, 0])->invert(); // #ff00ff
 ```
 
-### Color::invert([bool $bw]): string
+### `Color::invert([bool $bw]): string`
 
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.
@@ -49,7 +49,7 @@ InvertColor\Color::fromHex('#282b35')->invert(); // #d7d4ca
 InvertColor\Color::fromHex('282b35')->invert(true); // #ffffff
 ```
 
-### Color::invertAsRGB([bool $bw]): array
+### `Color::invertAsRGB([bool $bw]): array`
 
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black or white, according to the luminance of the original color.
@@ -63,7 +63,7 @@ InvertColor\Color::fromHex('#282b35')->invertAsRGB(); // [215, 212, 202]
 InvertColor\Color::fromHex('282b35')->invertAsRGB(true); // [255, 255, 255]
 ```
 
-### Color::invertAsObj([bool $bw]): Color
+### `Color::invertAsObj([bool $bw]): Color`
 
 - **`$bw`**: `bool`
 Optional. A boolean value indicating whether the output should be amplified to black or white, according to the luminance of the original color.
@@ -78,34 +78,33 @@ InvertColor\Color::fromHex('282b35')->invertAsObj(true)->getRGB(); // [255, 255,
 
 ```
 
-
-### Color::getHex(): string
+### `Color::getHex(): string`
 
 ```php
 InvertColor\Color::fromHex('#FFF')->getHex(); // #ffffff
 ```
 
-### Color::getRGB(): array
+### `Color::getRGB(): array`
 
 ```php
 InvertColor\Color::fromHex('#fff')->getRGB(); // [255, 255, 255]
 ```
 
-### Color::getLuminance(): float
+### `Color::getLuminance(): float`
 
 ```php
 InvertColor\Color::fromHex('#fff')->getLuminance(); // 1
 InvertColor\Color::fromHex('#000')->getLuminance(); // 0
 ```
 
-### Color::isBright(): bool
+### `Color::isBright(): bool`
 
 ```php
 InvertColor\Color::fromHex('#fff')->isBright(); // true
 InvertColor\Color::fromHex('#000')->isBright(); // false
 ```
 
-### Color::isDark(): bool
+### `Color::isDark(): bool`
 
 ```php
 InvertColor\Color::fromHex('#fff')->isDark(); // false
