@@ -14,19 +14,31 @@ composer require villfa/invert-color
 
 ## Usage
 
+Here a basic example:
 ```php
 <?php
-/* include composer autoload file */
+require_once('vendor/autoload.php');
 
-echo InvertColor\Color::fromHex('#fff')->invert(); // #000000
+use InvertColor\Color;
+use InvertColor\Exceptions\InvalidColorFormatException;
+
+try {
+    echo Color::fromHex('#fff')->invert(); // #000000
+} catch (InvalidColorFormatException $e) {
+    echo 'Invalid color: ', $e->getValue();
+}
 ```
 
-### `Color::fromHex(string $color): Color`
+### `Color::fromHex(string $color): Color - throws InvalidColorFormatException`
 
 - **`$color`**: `string`
 Color in HEX string. Accepted formats: #000000, #000, 000000, 000
 
-### `Color::fromRGB(array $rgb): Color`
+```php
+InvertColor\Color::fromHex('#fff')->invert(); // #000000
+```
+
+### `Color::fromRGB(array $rgb): Color - throws InvalidRGBException`
 
 - **`$rgb`**: `array`
 Color as an array of RGB values.
