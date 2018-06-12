@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace InvertColor\Exceptions;
 
-class InvalidColorFormatException extends \UnexpectedValueException
+class InvalidColorFormatException extends \UnexpectedValueException implements ColorException
 {
     /**
      * @var string
