@@ -113,9 +113,9 @@ class Color
     public function getHex(): string
     {
         return '#'.
-            \str_pad(\dechex($this->rgb[0]), 2, '0', STR_PAD_LEFT).
-            \str_pad(\dechex($this->rgb[1]), 2, '0', STR_PAD_LEFT).
-            \str_pad(\dechex($this->rgb[2]), 2, '0', STR_PAD_LEFT);
+            \str_pad(\dechex($this->rgb[0]), 2, '0', \STR_PAD_LEFT).
+            \str_pad(\dechex($this->rgb[1]), 2, '0', \STR_PAD_LEFT).
+            \str_pad(\dechex($this->rgb[2]), 2, '0', \STR_PAD_LEFT);
     }
 
     /**
