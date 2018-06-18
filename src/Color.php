@@ -90,7 +90,7 @@ class Color
             throw new InvalidRGBException('must contain 3 values exactly', $rgb);
         } elseif (!isset($rgb[0]) || !isset($rgb[1]) || !isset($rgb[2])) {
             throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
-        } elseif (!is_int($rgb[0]) || !is_int($rgb[1]) || !is_int($rgb[2])) {
+        } elseif (!\is_int($rgb[0]) || !\is_int($rgb[1]) || !\is_int($rgb[2])) {
             throw new InvalidRGBException('values must be integers', $rgb);
         } elseif ($rgb[0] < 0 || $rgb[1] < 0 || $rgb[2] < 0) {
             throw new InvalidRGBException('values must be greater or equal to 0', $rgb);
@@ -161,7 +161,7 @@ class Color
     private static function inv(int $channel): string
     {
         $inverted = \dechex(255 - $channel);
-        return \str_pad($inverted, 2, '0', STR_PAD_LEFT);
+        return \str_pad($inverted, 2, '0', \STR_PAD_LEFT);
     }
 
     /**
