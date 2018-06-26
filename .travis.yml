@@ -10,7 +10,7 @@ matrix:
     - php: master
 
 before_script:
- - phpenv config-rm xdebug.ini
+ - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
  - composer install
 
 script:
