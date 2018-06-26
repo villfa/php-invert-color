@@ -10,7 +10,7 @@ matrix:
     - php: master
 
 before_script:
- - composer self-update
+ - phpenv config-rm xdebug.ini
  - composer install
 
 script:
