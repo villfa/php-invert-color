@@ -42,7 +42,7 @@
             "@composer validate",
             "parallel-lint src/ tests/",
             "phpunit",
-            "phpstan analyze src tests --level=7",
+            "phpstan analyze src tests --level=max",
             "php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
         ]
     },
