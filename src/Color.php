@@ -65,7 +65,7 @@ class Color
     private static function hexToRGB(string $hex): array
     {
         $hexLength = \strlen($hex);
-        $isValid = ($regex = self::REGEX_BY_LENGTH[$hexLength] ?? null) && \preg_match($regex, $hex, $match);
+        $isValid = ($regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && \preg_match($regex, $hex, $match);
         if (!$isValid) {
             throw new InvalidColorFormatException($hex);
         }
