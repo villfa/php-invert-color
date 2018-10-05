@@ -15,32 +15,32 @@ class ColorTest extends TestCase
     /**
      * @dataProvider colorProvider
      */
-    public function testInvertColor(string $hex, string $expected)
+    public function testInvertColor(string $hex, string $expected): void
     {
         $color = Color::fromHex($hex);
-        $this->assertEquals($expected, $color->invert());
+        static::assertEquals($expected, $color->invert());
     }
 
     /**
      * @dataProvider colorProvider
      */
-    public function testInvertColorAsRGB(string $hex, string $expected)
+    public function testInvertColorAsRGB(string $hex, string $expected): void
     {
         $color = Color::fromHex($hex);
         $invertedColor = $color->invertAsRGB();
-        $this->assertEquals($expected, Color::fromRGB($invertedColor)->getHex());
+        static::assertEquals($expected, Color::fromRGB($invertedColor)->getHex());
     }
 
     /**
      * @dataProvider colorProvider
      */
-    public function testInvertColorAsObj(string $hex, string $expected)
+    public function testInvertColorAsObj(string $hex, string $expected): void
     {
         $color = Color::fromHex($hex);
-        $this->assertEquals($expected, $color->invertAsObj()->getHex());
+        static::assertEquals($expected, $color->invertAsObj()->getHex());
     }
 
-    public function colorProvider()
+    public function colorProvider(): array
     {
         return [
             ['#ffffff', '#000000'],
@@ -110,13 +110,13 @@ class ColorTest extends TestCase
     /**
      * @dataProvider invalidColorProvider
      */
-    public function testExceptionWithInvalidFormat(string $hex)
+    public function testExceptionWithInvalidFormat(string $hex): void
     {
         $this->expectException(InvalidColorFormatException::class);
         Color::fromHex($hex);
     }
 
-    public function invalidColorProvider()
+    public function invalidColorProvider(): array
     {
         return [
             ['#0000001'],
@@ -129,13 +129,13 @@ class ColorTest extends TestCase
     /**
      * @dataProvider validRGBProvider
      */
-    public function testGetRGB(array $rgb)
+    public function testGetRGB(array $rgb): void
     {
         $color = Color::fromRGB($rgb);
-        $this->assertEquals($rgb, $color->getRGB());
+        static::assertEquals($rgb, $color->getRGB());
     }
 
-    public function validRGBProvider()
+    public function validRGBProvider(): array
     {
         return [
             [[0, 0, 0]],
@@ -148,13 +148,13 @@ class ColorTest extends TestCase
     /**
      * @dataProvider invalidRGBProvider
      */
-    public function testExceptionWithInvalidRGB(array $rgb)
+    public function testExceptionWithInvalidRGB(array $rgb): void
     {
         $this->expectException(InvalidRGBException::class);
         Color::fromRGB($rgb);
     }
 
-    public function invalidRGBProvider()
+    public function invalidRGBProvider(): array
     {
         return [
             [[]],
@@ -166,7 +166,7 @@ class ColorTest extends TestCase
         ];
     }
 
-    public function getBrightColors()
+    public function getBrightColors(): array
     {
         return [
             '#e71398',
@@ -178,7 +178,7 @@ class ColorTest extends TestCase
         ];
     }
 
-    public function getDarkColors()
+    public function getDarkColors(): array
     {
         return [
             '#631746',
@@ -193,13 +193,13 @@ class ColorTest extends TestCase
     /**
      * @dataProvider blackOrWhiteProvider
      */
-    public function testInvertColorToBlackOrWhite(string $hex, string $expected)
+    public function testInvertColorToBlackOrWhite(string $hex, string $expected): void
     {
         $color = Color::fromHex($hex);
-        $this->assertEquals($expected, $color->invert(true));
+        static::assertEquals($expected, $color->invert(true));
     }
 
-    public function blackOrWhiteProvider()
+    public function blackOrWhiteProvider(): array
     {
         return array_merge(
             array_map(function ($hex) {
@@ -214,13 +214,13 @@ class ColorTest extends TestCase
     /**
      * @dataProvider blackOrWhiteAsRGBProvider
      */
-    public function testInvertColorToBlackOrWhiteAsRGB(string $hex, array $expected)
+    public function testInvertColorToBlackOrWhiteAsRGB(string $hex, array $expected): void
     {
         $color = Color::fromHex($hex);
-        $this->assertEquals($expected, $color->invertAsRGB(true));
+        static::assertEquals($expected, $color->invertAsRGB(true));
     }
 
-    public function blackOrWhiteAsRGBProvider()
+    public function blackOrWhiteAsRGBProvider(): array
     {
         return array_merge(
             array_map(function ($hex) {
@@ -235,14 +235,14 @@ class ColorTest extends TestCase
     /**
      * @dataProvider isBrightProvider
      */
-    public function testIsBrightOrDark(string $hex, bool $expected)
+    public function testIsBrightOrDark(string $hex, bool $expected): void
     {
         $color = Color::fromHex($hex);
-        $this->assertEquals($expected, $color->isBright());
-        $this->assertEquals(!$expected, $color->isDark());
+        static::assertEquals($expected, $color->isBright());
+        static::assertEquals(!$expected, $color->isDark());
     }
 
-    public function isBrightProvider()
+    public function isBrightProvider(): array
     {
         return array_merge(
             array_map(function ($hex) {

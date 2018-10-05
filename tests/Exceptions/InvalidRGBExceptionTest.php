@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 
 class InvalidRGBExceptionTest extends TestCase
 {
-    public function testGetters()
+    public function testGetters(): void
     {
         $exception = new InvalidRGBException('wrong content', ['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $exception->getValue());
-        $this->assertEquals('Invalid RGB: wrong content', $exception->getMessage());
-        $this->assertInstanceOf(ColorException::class, $exception);
-        $this->assertInstanceOf(\UnexpectedValueException::class, $exception);
+        static::assertEquals(['foo' => 'bar'], $exception->getValue());
+        static::assertEquals('Invalid RGB: wrong content', $exception->getMessage());
+        static::assertInstanceOf(ColorException::class, $exception);
+        static::assertInstanceOf(\UnexpectedValueException::class, $exception);
     }
 }

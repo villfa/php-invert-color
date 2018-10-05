@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 
 class InvalidColorFormatExceptionTest extends TestCase
 {
-    public function testGetters()
+    public function testGetters(): void
     {
         $exception = new InvalidColorFormatException('foo/bar');
-        $this->assertEquals('foo/bar', $exception->getValue());
-        $this->assertEquals('Invalid color format: foo/bar', $exception->getMessage());
-        $this->assertInstanceOf(ColorException::class, $exception);
-        $this->assertInstanceOf(\UnexpectedValueException::class, $exception);
+        static::assertEquals('foo/bar', $exception->getValue());
+        static::assertEquals('Invalid color format: foo/bar', $exception->getMessage());
+        static::assertInstanceOf(ColorException::class, $exception);
+        static::assertInstanceOf(\UnexpectedValueException::class, $exception);
     }
 }
