@@ -3,9 +3,7 @@
          convertErrorsToExceptions="true"
          convertWarningsToExceptions="true"
          convertNoticesToExceptions="true"
-         mapTestClassNameToCoveredClassName="true"
          bootstrap="vendor/autoload.php"
-         strict="true"
          verbose="true"
          colors="true">
     <testsuites>
