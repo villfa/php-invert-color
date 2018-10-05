@@ -3,5 +3,6 @@ composer.lock
 /vendor/
 
 phpunit.xml
+phpstan.neon
 
 .php_cs.cache
