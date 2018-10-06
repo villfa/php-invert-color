@@ -18,7 +18,7 @@ composer require villfa/invert-color
 Here a basic example:
 ```php
 <?php
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
 
 use InvertColor\Color;
 use InvertColor\Exceptions\InvalidColorFormatException;
