@@ -27,6 +27,7 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
         "php": "^7.1"
