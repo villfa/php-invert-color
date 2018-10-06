@@ -3,11 +3,11 @@ language: php
 php:
  - 7.1
  - 7.2
- - master
+ - nightly
 
 matrix:
   allow_failures:
-    - php: master
+    - php: nightly
 
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
