@@ -23,7 +23,7 @@ class Color
     ];
 
     /**
-     * @var array
+     * @var int[]
      */
     private $rgb;
 
@@ -39,7 +39,7 @@ class Color
 
     /**
      * @static
-     * @param array $rgb
+     * @param int[] $rgb
      * @throws InvalidRGBException
      */
     public static function fromRGB(array $rgb): self
@@ -49,7 +49,7 @@ class Color
     }
 
     /**
-     * @param array $rgb
+     * @param int[] $rgb
      */
     private function __construct(array $rgb)
     {
@@ -70,18 +70,19 @@ class Color
             throw new InvalidColorFormatException($hex);
         }
         return $hexLength > 4 ? [
-            \hexdec($match[1]),
-            \hexdec($match[2]),
-            \hexdec($match[3]),
+            (int) \hexdec($match[1]),
+            (int) \hexdec($match[2]),
+            (int) \hexdec($match[3]),
         ] : [
-            \hexdec($match[1].$match[1]),
-            \hexdec($match[2].$match[2]),
-            \hexdec($match[3].$match[3]),
+            (int) \hexdec($match[1].$match[1]),
+            (int) \hexdec($match[2].$match[2]),
+            (int) \hexdec($match[3].$match[3]),
         ];
     }
 
     /**
      * @static
+     * @param int[] $rgb
      * @throws InvalidRGBException
      */
     private static function checkRGB(array $rgb): void
@@ -100,7 +101,7 @@ class Color
     }
 
     /**
-     * @return array
+     * @return int[]
      */
     public function getRGB(): array
     {
