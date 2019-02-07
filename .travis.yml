@@ -11,7 +11,7 @@ matrix:
 
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
- - composer install
+ - composer install --ignore-platform-reqs
 
 script:
   - |
