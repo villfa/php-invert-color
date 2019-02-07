@@ -47,9 +47,13 @@
             "phpunit",
             "phpstan analyze src tests --level=max",
             "php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
+        ],
+        "ut": [
+            "phpunit"
         ]
     },
     "scripts-descriptions": {
-        "test": "Validate and test the whole library."
+        "test": "Validate and test the whole library.",
+        "ut": "Run unit tests only."
     }
 }

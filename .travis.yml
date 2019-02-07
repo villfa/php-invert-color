@@ -5,9 +5,11 @@ matrix:
     - php: '7.1'
     - php: '7.2'
     - php: '7.3'
+      env: FULL_TEST='true'
     - php: nightly
-      env: ONLY_UT='true'
   fast_finish: true
+  allow_failures:
+  - php: nightly
 
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
@@ -15,9 +17,8 @@ before_script:
 
 script:
   - |
-    if [ "$ONLY_UT" == "true" ]; then
-      ./vendor/bin/phpunit
-    else
+    if [ "$FULL_TEST" == "true" ]; then
       composer run-script test
+    else
+      composer run-script ut
     fi
-
