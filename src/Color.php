@@ -89,7 +89,7 @@ class Color
     {
         if (\count($rgb) !== 3) {
             throw new InvalidRGBException('must contain 3 values exactly', $rgb);
-        } elseif (!isset($rgb[0]) || !isset($rgb[1]) || !isset($rgb[2])) {
+        } elseif (!isset($rgb[0], $rgb[1], $rgb[2])) {
             throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
         } elseif (!\is_int($rgb[0]) || !\is_int($rgb[1]) || !\is_int($rgb[2])) {
             throw new InvalidRGBException('values must be integers', $rgb);
