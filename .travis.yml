@@ -5,16 +5,22 @@ php:
  - 7.2
  - 7.3
  - nightly
+   env: ONLY_UT='true'
 
 matrix:
-  fast_finish: true
-  allow_failures:
-    - php: nightly
+ fast_finish: true
+ allow_failures:
+  - php: nightly
 
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
  - composer install
 
 script:
- - composer run-script test
+ - |
+   if [ "$ONLY_UT" == "true" ]; then
+    ./vendor/bin/phpunit
+   else
+    composer run-script test
+   fi
 
