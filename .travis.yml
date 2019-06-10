@@ -13,6 +13,10 @@ matrix:
   - php: 7.4snapshot
   - php: nightly
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
  - composer install --ignore-platform-reqs
