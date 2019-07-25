@@ -42,7 +42,7 @@
     },
     "scripts": {
         "test": [
-            "@composer validate",
+            "@composer validate --no-interaction --strict",
             "parallel-lint src/ tests/",
             "phpunit",
             "phpstan analyze src tests --level=max",
