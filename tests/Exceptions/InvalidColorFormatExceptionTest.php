@@ -7,6 +7,7 @@ namespace InvertColor\Tests\Exceptions;
 use InvertColor\Exceptions\ColorException;
 use InvertColor\Exceptions\InvalidColorFormatException;
 use PHPUnit\Framework\TestCase;
+use UnexpectedValueException;
 
 class InvalidColorFormatExceptionTest extends TestCase
 {
@@ -16,6 +17,6 @@ class InvalidColorFormatExceptionTest extends TestCase
         static::assertEquals('foo/bar', $exception->getValue());
         static::assertEquals('Invalid color format: foo/bar', $exception->getMessage());
         static::assertInstanceOf(ColorException::class, $exception);
-        static::assertInstanceOf(\UnexpectedValueException::class, $exception);
+        static::assertInstanceOf(UnexpectedValueException::class, $exception);
     }
 }

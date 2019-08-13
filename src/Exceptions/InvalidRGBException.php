@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace InvertColor\Exceptions;
 
-class InvalidRGBException extends \UnexpectedValueException implements ColorException
+use UnexpectedValueException;
+
+class InvalidRGBException extends UnexpectedValueException implements ColorException
 {
     /**
      * @var array
