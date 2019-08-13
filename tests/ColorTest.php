@@ -160,26 +160,6 @@ class ColorTest extends TestCase
         yield [['0', 0, 0]];
     }
 
-    private static function getBrightColors(): iterable
-    {
-        yield '#e71398';
-        yield '#3ab3af';
-        yield '#76ff98';
-        yield '#bbb962';
-        yield '#52838b';
-        yield '#fff';
-    }
-
-    private static function getDarkColors(): iterable
-    {
-        yield '#631746';
-        yield '#655c42';
-        yield '#166528';
-        yield '#4c2946';
-        yield '#002d26';
-        yield '#000';
-    }
-
     /**
      * @dataProvider blackOrWhiteProvider
      */
@@ -236,5 +216,25 @@ class ColorTest extends TestCase
         foreach (self::getDarkColors() as $hex) {
             yield [$hex, false];
         }
+    }
+
+    private static function getBrightColors(): iterable
+    {
+        yield '#e71398';
+        yield '#3ab3af';
+        yield '#76ff98';
+        yield '#bbb962';
+        yield '#52838b';
+        yield '#fff';
+    }
+
+    private static function getDarkColors(): iterable
+    {
+        yield '#631746';
+        yield '#655c42';
+        yield '#166528';
+        yield '#4c2946';
+        yield '#002d26';
+        yield '#000';
     }
 }

@@ -10,9 +10,9 @@ use InvertColor\Exceptions\InvalidRGBException;
 use function count;
 use function dechex;
 use function is_int;
+use function preg_match;
 use function strlen;
 use function str_pad;
-use function preg_match;
 
 use const STR_PAD_LEFT;
 
@@ -39,36 +39,6 @@ class Color
     private $rgb;
 
     /**
-     * @static
-     *
-     * @param string $hex
-     *
-     * @return self
-     *
-     * @throws InvalidColorFormatException
-     */
-    public static function fromHex(string $hex): self
-    {
-        return new self(self::hexToRGB($hex));
-    }
-
-    /**
-     * @static
-     *
-     * @param int[] $rgb
-     *
-     * @return self
-     *
-     * @throws InvalidRGBException
-     */
-    public static function fromRGB(array $rgb): self
-    {
-        self::checkRGB($rgb);
-
-        return new self($rgb);
-    }
-
-    /**
      * @param int[] $rgb
      */
     private function __construct(array $rgb)
@@ -81,27 +51,13 @@ class Color
      *
      * @param string $hex
      *
-     * @return int[]
-     *
      * @throws InvalidColorFormatException
+     *
+     * @return self
      */
-    private static function hexToRGB(string $hex): array
+    public static function fromHex(string $hex): self
     {
-        $hexLength = strlen($hex);
-        $isValid = ((bool)$regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && (bool)preg_match($regex, $hex, $match);
-        if (!$isValid) {
-            throw new InvalidColorFormatException($hex);
-        }
-
-        return $hexLength > 4 ? [
-            (int)hexdec($match[1]),
-            (int)hexdec($match[2]),
-            (int)hexdec($match[3]),
-        ] : [
-            (int)hexdec($match[1].$match[1]),
-            (int)hexdec($match[2].$match[2]),
-            (int)hexdec($match[3].$match[3]),
-        ];
+        return new self(self::hexToRGB($hex));
     }
 
     /**
@@ -110,20 +66,14 @@ class Color
      * @param int[] $rgb
      *
      * @throws InvalidRGBException
+     *
+     * @return self
      */
-    private static function checkRGB(array $rgb): void
+    public static function fromRGB(array $rgb): self
     {
-        if (count($rgb) !== 3) {
-            throw new InvalidRGBException('must contain 3 values exactly', $rgb);
-        } elseif (!isset($rgb[0], $rgb[1], $rgb[2])) {
-            throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
-        } elseif (!is_int($rgb[0]) || !is_int($rgb[1]) || !is_int($rgb[2])) {
-            throw new InvalidRGBException('values must be integers', $rgb);
-        } elseif ($rgb[0] < 0 || $rgb[1] < 0 || $rgb[2] < 0) {
-            throw new InvalidRGBException('values must be greater or equal to 0', $rgb);
-        } elseif ($rgb[0] > 255 || $rgb[1] > 255 || $rgb[2] > 255) {
-            throw new InvalidRGBException('values must be lesser or equal to 255', $rgb);
-        }
+        self::checkRGB($rgb);
+
+        return new self($rgb);
     }
 
     /**
@@ -191,18 +141,6 @@ class Color
     }
 
     /**
-     * @param int $channel
-     *
-     * @return string
-     */
-    private static function inv(int $channel): string
-    {
-        $inverted = dechex(255 - $channel);
-
-        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
-    }
-
-    /**
      * @return float
      *
      * @see https://www.w3.org/TR/WCAG20/relative-luminance.xml
@@ -232,5 +170,71 @@ class Color
     public function isDark(): bool
     {
         return $this->getLuminance() <= self::LUMINANCE_THRESHOLD;
+    }
+
+    /**
+     * @static
+     *
+     * @param string $hex
+     *
+     * @throws InvalidColorFormatException
+     *
+     * @return int[]
+     */
+    private static function hexToRGB(string $hex): array
+    {
+        $hexLength = strlen($hex);
+        $isValid = ((bool) $regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && (bool) preg_match($regex, $hex, $match);
+        if (!$isValid) {
+            throw new InvalidColorFormatException($hex);
+        }
+
+        return $hexLength > 4 ? [
+            (int) hexdec($match[1]),
+            (int) hexdec($match[2]),
+            (int) hexdec($match[3]),
+        ] : [
+            (int) hexdec($match[1].$match[1]),
+            (int) hexdec($match[2].$match[2]),
+            (int) hexdec($match[3].$match[3]),
+        ];
+    }
+
+    /**
+     * @static
+     *
+     * @param int[] $rgb
+     *
+     * @throws InvalidRGBException
+     */
+    private static function checkRGB(array $rgb): void
+    {
+        if (3 !== count($rgb)) {
+            throw new InvalidRGBException('must contain 3 values exactly', $rgb);
+        }
+        if (!isset($rgb[0], $rgb[1], $rgb[2])) {
+            throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
+        }
+        if (!is_int($rgb[0]) || !is_int($rgb[1]) || !is_int($rgb[2])) {
+            throw new InvalidRGBException('values must be integers', $rgb);
+        }
+        if ($rgb[0] < 0 || $rgb[1] < 0 || $rgb[2] < 0) {
+            throw new InvalidRGBException('values must be greater or equal to 0', $rgb);
+        }
+        if ($rgb[0] > 255 || $rgb[1] > 255 || $rgb[2] > 255) {
+            throw new InvalidRGBException('values must be lesser or equal to 255', $rgb);
+        }
+    }
+
+    /**
+     * @param int $channel
+     *
+     * @return string
+     */
+    private static function inv(int $channel): string
+    {
+        $inverted = dechex(255 - $channel);
+
+        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 }
