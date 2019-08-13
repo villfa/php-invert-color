@@ -1,16 +1,20 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
-use const STR_PAD_LEFT;
+
 use function count;
 use function dechex;
 use function is_int;
 use function strlen;
 use function str_pad;
 use function preg_match;
+
+use const STR_PAD_LEFT;
 
 class Color
 {
@@ -36,7 +40,11 @@ class Color
 
     /**
      * @static
+     *
      * @param string $hex
+     *
+     * @return self
+     *
      * @throws InvalidColorFormatException
      */
     public static function fromHex(string $hex): self
@@ -46,12 +54,17 @@ class Color
 
     /**
      * @static
+     *
      * @param int[] $rgb
+     *
+     * @return self
+     *
      * @throws InvalidRGBException
      */
     public static function fromRGB(array $rgb): self
     {
         self::checkRGB($rgb);
+
         return new self($rgb);
     }
 
@@ -65,8 +78,11 @@ class Color
 
     /**
      * @static
+     *
      * @param string $hex
+     *
      * @return int[]
+     *
      * @throws InvalidColorFormatException
      */
     private static function hexToRGB(string $hex): array
@@ -76,6 +92,7 @@ class Color
         if (!$isValid) {
             throw new InvalidColorFormatException($hex);
         }
+
         return $hexLength > 4 ? [
             (int)hexdec($match[1]),
             (int)hexdec($match[2]),
@@ -89,7 +106,9 @@ class Color
 
     /**
      * @static
+     *
      * @param int[] $rgb
+     *
      * @throws InvalidRGBException
      */
     private static function checkRGB(array $rgb): void
@@ -128,6 +147,7 @@ class Color
 
     /**
      * @param bool $bw
+     *
      * @return string
      */
     public function invert(bool $bw = false): string
@@ -135,6 +155,7 @@ class Color
         if ($bw) {
             return $this->isBright() ? '#000000' : '#ffffff';
         }
+
         return '#'.
             self::inv($this->rgb[0]).
             self::inv($this->rgb[1]).
@@ -143,6 +164,7 @@ class Color
 
     /**
      * @param bool $bw
+     *
      * @return array
      */
     public function invertAsRGB(bool $bw = false): array
@@ -150,6 +172,7 @@ class Color
         if ($bw) {
             return $this->isBright() ? [0, 0, 0] : [255, 255, 255];
         }
+
         return [
             255 - $this->rgb[0],
             255 - $this->rgb[1],
@@ -159,6 +182,7 @@ class Color
 
     /**
      * @param bool $bw
+     *
      * @return self
      */
     public function invertAsObj(bool $bw = false): self
@@ -166,15 +190,22 @@ class Color
         return new self($this->invertAsRGB($bw));
     }
 
+    /**
+     * @param int $channel
+     *
+     * @return string
+     */
     private static function inv(int $channel): string
     {
         $inverted = dechex(255 - $channel);
+
         return str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 
     /**
      * @return float
-     * @link https://www.w3.org/TR/WCAG20/relative-luminance.xml
+     *
+     * @see https://www.w3.org/TR/WCAG20/relative-luminance.xml
      */
     public function getLuminance(): float
     {
@@ -183,6 +214,7 @@ class Color
             $coef = $channel / 255;
             $levels[$i] = $coef <= 0.03928 ? $coef / 12.92 : (($coef + 0.055) / 1.055) ** 2.4;
         }
+
         return 0.2126 * $levels[0] + 0.7152 * $levels[1] + 0.0722 * $levels[2];
     }
 

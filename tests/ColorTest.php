@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace InvertColor\Tests;
 
+use InvertColor\Color;
 use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
-use InvertColor\Color;
 use PHPUnit\Framework\TestCase;
 
 class ColorTest extends TestCase
