@@ -4,6 +4,13 @@ namespace InvertColor;
 
 use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
+use const STR_PAD_LEFT;
+use function count;
+use function dechex;
+use function is_int;
+use function strlen;
+use function str_pad;
+use function preg_match;
 
 class Color
 {
@@ -64,19 +71,19 @@ class Color
      */
     private static function hexToRGB(string $hex): array
     {
-        $hexLength = \strlen($hex);
-        $isValid = ((bool)$regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && (bool)\preg_match($regex, $hex, $match);
+        $hexLength = strlen($hex);
+        $isValid = ((bool)$regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && (bool)preg_match($regex, $hex, $match);
         if (!$isValid) {
             throw new InvalidColorFormatException($hex);
         }
         return $hexLength > 4 ? [
-            (int) \hexdec($match[1]),
-            (int) \hexdec($match[2]),
-            (int) \hexdec($match[3]),
+            (int)hexdec($match[1]),
+            (int)hexdec($match[2]),
+            (int)hexdec($match[3]),
         ] : [
-            (int) \hexdec($match[1].$match[1]),
-            (int) \hexdec($match[2].$match[2]),
-            (int) \hexdec($match[3].$match[3]),
+            (int)hexdec($match[1].$match[1]),
+            (int)hexdec($match[2].$match[2]),
+            (int)hexdec($match[3].$match[3]),
         ];
     }
 
@@ -87,11 +94,11 @@ class Color
      */
     private static function checkRGB(array $rgb): void
     {
-        if (\count($rgb) !== 3) {
+        if (count($rgb) !== 3) {
             throw new InvalidRGBException('must contain 3 values exactly', $rgb);
         } elseif (!isset($rgb[0], $rgb[1], $rgb[2])) {
             throw new InvalidRGBException('indexes must be integers and start at 0', $rgb);
-        } elseif (!\is_int($rgb[0]) || !\is_int($rgb[1]) || !\is_int($rgb[2])) {
+        } elseif (!is_int($rgb[0]) || !is_int($rgb[1]) || !is_int($rgb[2])) {
             throw new InvalidRGBException('values must be integers', $rgb);
         } elseif ($rgb[0] < 0 || $rgb[1] < 0 || $rgb[2] < 0) {
             throw new InvalidRGBException('values must be greater or equal to 0', $rgb);
@@ -114,9 +121,9 @@ class Color
     public function getHex(): string
     {
         return '#'.
-            \str_pad(\dechex($this->rgb[0]), 2, '0', \STR_PAD_LEFT).
-            \str_pad(\dechex($this->rgb[1]), 2, '0', \STR_PAD_LEFT).
-            \str_pad(\dechex($this->rgb[2]), 2, '0', \STR_PAD_LEFT);
+            str_pad(dechex($this->rgb[0]), 2, '0', STR_PAD_LEFT).
+            str_pad(dechex($this->rgb[1]), 2, '0', STR_PAD_LEFT).
+            str_pad(dechex($this->rgb[2]), 2, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -161,8 +168,8 @@ class Color
 
     private static function inv(int $channel): string
     {
-        $inverted = \dechex(255 - $channel);
-        return \str_pad($inverted, 2, '0', \STR_PAD_LEFT);
+        $inverted = dechex(255 - $channel);
+        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 
     /**
