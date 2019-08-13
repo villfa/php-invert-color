@@ -16,6 +16,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     *
+     * @param string $hex
+     * @param string $expected
      */
     public function testInvertColor(string $hex, string $expected): void
     {
@@ -25,6 +28,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     *
+     * @param string $hex
+     * @param string $expected
      */
     public function testInvertColorAsRGB(string $hex, string $expected): void
     {
@@ -35,6 +41,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     *
+     * @param string $hex
+     * @param string $expected
      */
     public function testInvertColorAsObj(string $hex, string $expected): void
     {
@@ -109,6 +118,8 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider invalidColorProvider
+     *
+     * @param string $hex
      */
     public function testExceptionWithInvalidFormat(string $hex): void
     {
@@ -126,6 +137,8 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider validRGBProvider
+     *
+     * @param array $rgb
      */
     public function testGetRGB(array $rgb): void
     {
@@ -143,6 +156,8 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider invalidRGBProvider
+     *
+     * @param array $rgb
      */
     public function testExceptionWithInvalidRGB(array $rgb): void
     {
@@ -162,6 +177,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider blackOrWhiteProvider
+     *
+     * @param string $hex
+     * @param string $expected
      */
     public function testInvertColorToBlackOrWhite(string $hex, string $expected): void
     {
@@ -181,6 +199,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider blackOrWhiteAsRGBProvider
+     *
+     * @param string $hex
+     * @param array $expected
      */
     public function testInvertColorToBlackOrWhiteAsRGB(string $hex, array $expected): void
     {
@@ -200,6 +221,9 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider isBrightProvider
+     *
+     * @param string $hex
+     * @param bool $expected
      */
     public function testIsBrightOrDark(string $hex, bool $expected): void
     {
