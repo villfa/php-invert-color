@@ -35,10 +35,11 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
         "jakub-onderka/php-parallel-lint": "^1.0",
-        "phpstan/phpstan": "^0.10",
-        "phpstan/phpstan-phpunit": "^0.10",
-        "phpstan/phpstan-strict-rules": "^0.10",
-        "phpunit/phpunit": "^7.0"
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
+        "phpstan/phpstan-strict-rules": "^0.11",
+        "phpunit/phpunit": "^7.0",
+        "vimeo/psalm": "^3.4"
     },
     "scripts": {
         "test": [
@@ -46,6 +47,7 @@
             "parallel-lint src/ tests/",
             "phpunit",
             "phpstan analyze src tests --level=max",
+            "psalm",
             "php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
         ],
         "ut": [

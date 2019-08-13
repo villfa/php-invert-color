@@ -115,7 +115,7 @@ class Color
     /**
      * @param bool $bw
      *
-     * @return array
+     * @return int[]
      */
     public function invertAsRGB(bool $bw = false): array
     {
@@ -184,8 +184,9 @@ class Color
     private static function hexToRGB(string $hex): array
     {
         $hexLength = strlen($hex);
-        $isValid = ((bool) $regex = self::REGEX_BY_LENGTH[$hexLength] ?? '') && (bool) preg_match($regex, $hex, $match);
-        if (!$isValid) {
+        $regex = self::REGEX_BY_LENGTH[$hexLength] ?? '';
+        $match = [];
+        if ($regex === '' || preg_match($regex, $hex, $match) !== 1) {
             throw new InvalidColorFormatException($hex);
         }
 
@@ -203,7 +204,7 @@ class Color
     /**
      * @static
      *
-     * @param int[] $rgb
+     * @param array $rgb
      *
      * @throws InvalidRGBException
      */
