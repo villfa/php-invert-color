@@ -14,6 +14,7 @@ class InvalidRGBException extends UnexpectedValueException implements ColorExcep
     private $value;
 
     /**
+     * @param string $explanation
      * @param array $value
      */
     public function __construct(string $explanation, array $value)
