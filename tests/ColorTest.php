@@ -42,71 +42,69 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invertAsObj()->getHex());
     }
 
-    public function colorProvider(): array
+    public function colorProvider(): iterable
     {
-        return [
-            ['#ffffff', '#000000'],
-            ['#000000', '#ffffff'],
-            ['ffffff', '#000000'],
-            ['000000', '#ffffff'],
-            ['#fff', '#000000'],
-            ['#000', '#ffffff'],
-            ['fff', '#000000'],
-            ['000', '#ffffff'],
-            ['#201395', '#dfec6a'],
-            ['#840133', '#7bfecc'],
-            ['#6ec6c8', '#913937'],
-            ['#7fa1d3', '#805e2c'],
-            ['#e0c04e', '#1f3fb1'],
-            ['#3ad673', '#c5298c'],
-            ['#edffe7', '#120018'],
-            ['#a8f2f0', '#570d0f'],
-            ['#da6aaa', '#259555'],
-            ['#f9c6be', '#063941'],
-            ['#2c2ea2', '#d3d15d'],
-            ['#53456a', '#acba95'],
-            ['#ab1b77', '#54e488'],
-            ['#9288a4', '#6d775b'],
-            ['#cf4a78', '#30b587'],
-            ['#463069', '#b9cf96'],
-            ['#ac6d63', '#53929c'],
-            ['#be5a33', '#41a5cc'],
-            ['#a07c96', '#5f8369'],
-            ['#710cd1', '#8ef32e'],
-            ['#676693', '#98996c'],
-            ['#230be2', '#dcf41d'],
-            ['#9481a4', '#6b7e5b'],
-            ['#490cf8', '#b6f307'],
-            ['#389847', '#c767b8'],
-            ['#4898c2', '#b7673d'],
-            ['#71d449', '#8e2bb6'],
-            ['#61ad88', '#9e5277'],
-            ['#bd3a5b', '#42c5a4'],
-            ['#e32ac1', '#1cd53e'],
-            ['#ac3ba9', '#53c456'],
-            ['#c78ef0', '#38710f'],
-            ['#48bdda', '#b74225'],
-            ['#7855ae', '#87aa51'],
-            ['#bf9845', '#4067ba'],
-            ['#b2b766', '#4d4899'],
-            ['#6ca3d9', '#935c26'],
-            ['#b0af42', '#4f50bd'],
-            ['#9fec76', '#601389'],
-            ['#de79f1', '#21860e'],
-            ['#5b7b0a', '#a484f5'],
-            ['#27a5ec', '#d85a13'],
-            ['#a3375e', '#5cc8a1'],
-            ['#414176', '#bebe89'],
-            ['#cde92f', '#3216d0'],
-            ['#d13eb4', '#2ec14b'],
-            ['#ee7d54', '#1182ab'],
-            ['#35b9dc', '#ca4623'],
-            ['#bf137b', '#40ec84'],
-            ['#b7027c', '#48fd83'],
-            ['#282b35', '#d7d4ca'],
-            ['#951a9d', '#6ae562'],
-            ['#566394', '#a99c6b'],
-        ];
+        yield ['#ffffff', '#000000'];
+        yield ['#000000', '#ffffff'];
+        yield ['ffffff', '#000000'];
+        yield ['000000', '#ffffff'];
+        yield ['#fff', '#000000'];
+        yield ['#000', '#ffffff'];
+        yield ['fff', '#000000'];
+        yield ['000', '#ffffff'];
+        yield ['#201395', '#dfec6a'];
+        yield ['#840133', '#7bfecc'];
+        yield ['#6ec6c8', '#913937'];
+        yield ['#7fa1d3', '#805e2c'];
+        yield ['#e0c04e', '#1f3fb1'];
+        yield ['#3ad673', '#c5298c'];
+        yield ['#edffe7', '#120018'];
+        yield ['#a8f2f0', '#570d0f'];
+        yield ['#da6aaa', '#259555'];
+        yield ['#f9c6be', '#063941'];
+        yield ['#2c2ea2', '#d3d15d'];
+        yield ['#53456a', '#acba95'];
+        yield ['#ab1b77', '#54e488'];
+        yield ['#9288a4', '#6d775b'];
+        yield ['#cf4a78', '#30b587'];
+        yield ['#463069', '#b9cf96'];
+        yield ['#ac6d63', '#53929c'];
+        yield ['#be5a33', '#41a5cc'];
+        yield ['#a07c96', '#5f8369'];
+        yield ['#710cd1', '#8ef32e'];
+        yield ['#676693', '#98996c'];
+        yield ['#230be2', '#dcf41d'];
+        yield ['#9481a4', '#6b7e5b'];
+        yield ['#490cf8', '#b6f307'];
+        yield ['#389847', '#c767b8'];
+        yield ['#4898c2', '#b7673d'];
+        yield ['#71d449', '#8e2bb6'];
+        yield ['#61ad88', '#9e5277'];
+        yield ['#bd3a5b', '#42c5a4'];
+        yield ['#e32ac1', '#1cd53e'];
+        yield ['#ac3ba9', '#53c456'];
+        yield ['#c78ef0', '#38710f'];
+        yield ['#48bdda', '#b74225'];
+        yield ['#7855ae', '#87aa51'];
+        yield ['#bf9845', '#4067ba'];
+        yield ['#b2b766', '#4d4899'];
+        yield ['#6ca3d9', '#935c26'];
+        yield ['#b0af42', '#4f50bd'];
+        yield ['#9fec76', '#601389'];
+        yield ['#de79f1', '#21860e'];
+        yield ['#5b7b0a', '#a484f5'];
+        yield ['#27a5ec', '#d85a13'];
+        yield ['#a3375e', '#5cc8a1'];
+        yield ['#414176', '#bebe89'];
+        yield ['#cde92f', '#3216d0'];
+        yield ['#d13eb4', '#2ec14b'];
+        yield ['#ee7d54', '#1182ab'];
+        yield ['#35b9dc', '#ca4623'];
+        yield ['#bf137b', '#40ec84'];
+        yield ['#b7027c', '#48fd83'];
+        yield ['#282b35', '#d7d4ca'];
+        yield ['#951a9d', '#6ae562'];
+        yield ['#566394', '#a99c6b'];
     }
 
     /**
@@ -118,14 +116,12 @@ class ColorTest extends TestCase
         Color::fromHex($hex);
     }
 
-    public function invalidColorProvider(): array
+    public function invalidColorProvider(): iterable
     {
-        return [
-            ['#0000001'],
-            ['#00000Z'],
-            ['#00'],
-            [''],
-        ];
+        yield ['#0000001'];
+        yield ['#00000Z'];
+        yield ['#00'];
+        yield [''];
     }
 
     /**
@@ -137,14 +133,12 @@ class ColorTest extends TestCase
         static::assertEquals($rgb, $color->getRGB());
     }
 
-    public function validRGBProvider(): array
+    public function validRGBProvider(): iterable
     {
-        return [
-            [[0, 0, 0]],
-            [[255, 255, 255]],
-            [[0, 255, 0]],
-            [[42, 111, 33]],
-        ];
+        yield [[0, 0, 0]];
+        yield [[255, 255, 255]];
+        yield [[0, 255, 0]];
+        yield [[42, 111, 33]];
     }
 
     /**
@@ -156,40 +150,34 @@ class ColorTest extends TestCase
         Color::fromRGB($rgb);
     }
 
-    public function invalidRGBProvider(): array
+    public function invalidRGBProvider(): iterable
     {
-        return [
-            [[]],
-            [[0, 0, 0, 0]],
-            [[0, 0, null]],
-            [[0, -1, 0]],
-            [[256, 0, 0]],
-            [['0', 0, 0]],
-        ];
+        yield [[]];
+        yield [[0, 0, 0, 0]];
+        yield [[0, 0, null]];
+        yield [[0, -1, 0]];
+        yield [[256, 0, 0]];
+        yield [['0', 0, 0]];
     }
 
-    public function getBrightColors(): array
+    private static function getBrightColors(): iterable
     {
-        return [
-            '#e71398',
-            '#3ab3af',
-            '#76ff98',
-            '#bbb962',
-            '#52838b',
-            '#fff',
-        ];
+        yield '#e71398';
+        yield '#3ab3af';
+        yield '#76ff98';
+        yield '#bbb962';
+        yield '#52838b';
+        yield '#fff';
     }
 
-    public function getDarkColors(): array
+    private static function getDarkColors(): iterable
     {
-        return [
-            '#631746',
-            '#655c42',
-            '#166528',
-            '#4c2946',
-            '#002d26',
-            '#000',
-        ];
+        yield '#631746';
+        yield '#655c42';
+        yield '#166528';
+        yield '#4c2946';
+        yield '#002d26';
+        yield '#000';
     }
 
     /**
@@ -201,16 +189,14 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invert(true));
     }
 
-    public function blackOrWhiteProvider(): array
+    public function blackOrWhiteProvider(): iterable
     {
-        return array_merge(
-            array_map(function ($hex) {
-                return [$hex, self::BLACK];
-            }, $this->getBrightColors()),
-            array_map(function ($hex) {
-                return [$hex, self::WHITE];
-            }, $this->getDarkColors())
-        );
+        foreach (self::getBrightColors() as $hex) {
+            yield [$hex, self::BLACK];
+        }
+        foreach (self::getDarkColors() as $hex) {
+            yield [$hex, self::WHITE];
+        }
     }
 
     /**
@@ -222,16 +208,14 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invertAsRGB(true));
     }
 
-    public function blackOrWhiteAsRGBProvider(): array
+    public function blackOrWhiteAsRGBProvider(): iterable
     {
-        return array_merge(
-            array_map(function ($hex) {
-                return [$hex, [0, 0, 0]];
-            }, $this->getBrightColors()),
-            array_map(function ($hex) {
-                return [$hex, [255, 255, 255]];
-            }, $this->getDarkColors())
-        );
+        foreach (self::getBrightColors() as $hex) {
+            yield [$hex, [0, 0, 0]];
+        }
+        foreach (self::getDarkColors() as $hex) {
+            yield [$hex, [255, 255, 255]];
+        }
     }
 
     /**
@@ -244,15 +228,13 @@ class ColorTest extends TestCase
         static::assertEquals(!$expected, $color->isDark());
     }
 
-    public function isBrightProvider(): array
+    public function isBrightProvider(): iterable
     {
-        return array_merge(
-            array_map(function ($hex) {
-                return [$hex, true];
-            }, $this->getBrightColors()),
-            array_map(function ($hex) {
-                return [$hex, false];
-            }, $this->getDarkColors())
-        );
+        foreach (self::getBrightColors() as $hex) {
+            yield [$hex, true];
+        }
+        foreach (self::getDarkColors() as $hex) {
+            yield [$hex, false];
+        }
     }
 }
