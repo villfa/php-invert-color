@@ -13,7 +13,7 @@
     "type": "library",
     "authors": [
         {
-            "name": "Fabien Villepinte",
+            "name": "Fabien VILLEPINTE",
             "email": "fabien.villepinte@gmail.com"
         }
     ],
@@ -27,6 +27,7 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
+    "homepage": "https://github.com/villfa/php-invert-color",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
