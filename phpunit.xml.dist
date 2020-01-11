@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://phpunit.readthedocs.io/en/7.5/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.5/phpunit.xsd"
          backupGlobals="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
          convertErrorsToExceptions="true"
          convertWarningsToExceptions="true"
          convertNoticesToExceptions="true"
-         bootstrap="vendor/autoload.php"
-         verbose="true"
-         colors="true">
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
     <testsuites>
         <testsuite name="InvertColor">
             <directory>./tests/</directory>
