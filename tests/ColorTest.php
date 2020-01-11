@@ -16,6 +16,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     * @testdox testInvertColor: $hex
      *
      * @param string $hex
      * @param string $expected
@@ -28,6 +29,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     * @testdox testInvertColorAsRGB: $hex
      *
      * @param string $hex
      * @param string $expected
@@ -41,6 +43,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider colorProvider
+     * @testdox testInvertColorAsObj: $hex
      *
      * @param string $hex
      * @param string $expected
@@ -118,6 +121,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider invalidColorProvider
+     * @testdox testExceptionWithInvalidFormat: $hex
      *
      * @param string $hex
      */
@@ -137,21 +141,25 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider validRGBProvider
+     * @testdox testGetRGB: [$r, $g, $b]
      *
-     * @param array $rgb
+     * @param int $r
+     * @param int $g
+     * @param int $b
      */
-    public function testGetRGB(array $rgb): void
+    public function testGetRGB(int $r, int $g, int $b): void
     {
+        $rgb = [$r, $g, $b];
         $color = Color::fromRGB($rgb);
         static::assertEquals($rgb, $color->getRGB());
     }
 
     public function validRGBProvider(): iterable
     {
-        yield [[0, 0, 0]];
-        yield [[255, 255, 255]];
-        yield [[0, 255, 0]];
-        yield [[42, 111, 33]];
+        yield [0, 0, 0];
+        yield [255, 255, 255];
+        yield [0, 255, 0];
+        yield [42, 111, 33];
     }
 
     /**
@@ -177,6 +185,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider blackOrWhiteProvider
+     * @testdox testInvertColorToBlackOrWhite: $hex
      *
      * @param string $hex
      * @param string $expected
@@ -199,6 +208,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider blackOrWhiteAsRGBProvider
+     * @testdox testInvertColorToBlackOrWhiteAsRGB: $hex
      *
      * @param string $hex
      * @param array $expected
@@ -221,6 +231,7 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider isBrightProvider
+     * @testdox testIsBrightOrDark: $hex
      *
      * @param string $hex
      * @param bool $expected
