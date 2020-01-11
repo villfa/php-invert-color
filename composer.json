@@ -45,14 +45,14 @@
     "scripts": {
         "test": [
             "@composer validate --no-interaction --strict",
-            "parallel-lint src/ tests/",
-            "phpunit --testdox --testsuite InvertColor",
-            "phpstan analyze src tests --level=max",
-            "psalm",
-            "php-cs-fixer fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
+            "parallel-lint -j 4 src/ tests/",
+            "phpunit --colors=always --testdox --testsuite InvertColor",
+            "phpstan analyze --ansi src tests --level=max",
+            "psalm --long-progress --stats",
+            "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
         ],
         "ut": [
-            "phpunit --testdox --testsuite InvertColor"
+            "phpunit --colors=always --testdox --testsuite InvertColor"
         ]
     },
     "scripts-descriptions": {
