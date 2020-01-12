@@ -9,6 +9,8 @@ use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
 use PHPUnit\Framework\TestCase;
 
+use const INF;
+
 class ColorTest extends TestCase
 {
     private const BLACK = '#000000';
@@ -164,23 +166,46 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider invalidRGBProvider
+     * @testdox testExceptionWithInvalidRGB: $explanation ($_testdoxMessage)
      *
      * @param array $rgb
+     * @param string $explanation
+     * @param string $_testdoxMessage
      */
-    public function testExceptionWithInvalidRGB(array $rgb): void
+    public function testExceptionWithInvalidRGB(array $rgb, string $explanation, string $_testdoxMessage): void
     {
-        $this->expectException(InvalidRGBException::class);
+        $expectedException = new InvalidRGBException($explanation, $rgb);
+        $this->expectExceptionObject($expectedException);
         Color::fromRGB($rgb);
     }
 
     public function invalidRGBProvider(): iterable
     {
-        yield [[]];
-        yield [[0, 0, 0, 0]];
-        yield [[0, 0, null]];
-        yield [[0, -1, 0]];
-        yield [[256, 0, 0]];
-        yield [['0', 0, 0]];
+        $explanation = 'must contain 3 values exactly';
+        yield [[], $explanation, 'empty array'];
+        yield [[0], $explanation, '1 value'];
+        yield [[0, 0], $explanation, '2 values'];
+        yield [[0, 0, 0, 0], $explanation, '4 values'];
+        $explanation = 'indexes must be integers and start at 0';
+        yield [[null, 0, 0], $explanation, 'R is NULL'];
+        yield [[1 => 0, 0, 0], $explanation, 'index starts at 1'];
+        yield [['a' => 0, 'b' => 0, 'c' => 0], $explanation, 'indexes are strings'];
+        $explanation = 'values must be integers';
+        yield [['0', 0, 0], $explanation, 'R is string'];
+        yield [[0, '0', 0], $explanation, 'G is string'];
+        yield [[0, 0, '0'], $explanation, 'B is string'];
+        yield [[0.0, 0, 0], $explanation, 'R is float'];
+        yield [[INF, 0, 0], $explanation, 'R is INF'];
+        $explanation = 'values must be greater or equal to 0';
+        yield [[-1, 0, 0], $explanation, 'R = -1'];
+        yield [[0, -1, 0], $explanation, 'G = -1'];
+        yield [[0, 0, -1], $explanation, 'B = -1 '];
+        yield [[-1, -1, -1], $explanation, 'R = -1, G = -1, B = -1'];
+        $explanation = 'values must be lesser or equal to 255';
+        yield [[256, 0, 0], $explanation, 'R = 256'];
+        yield [[0, 256, 0], $explanation, 'G = 256'];
+        yield [[0, 0, 256], $explanation, 'B = 256'];
+        yield [[256, 256, 256], $explanation, 'R = 256, G = 256, B = 256'];
     }
 
     /**
