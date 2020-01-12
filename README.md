@@ -142,4 +142,3 @@ More resources:
 ## License
 
 [MIT](./LICENSE)
-
