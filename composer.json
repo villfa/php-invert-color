@@ -43,20 +43,30 @@
         "vimeo/psalm": "^3.4"
     },
     "scripts": {
+        "lint": "parallel-lint -j 4 src/ tests/",
+        "phpcs": "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no .",
+        "phpstan": "phpstan analyze --ansi src tests --level=max",
+        "phpunit": "phpunit --colors=always --testdox --testsuite InvertColor",
+        "psalm": "psalm --long-progress --stats",
         "test": [
             "@composer validate --no-interaction --strict",
-            "parallel-lint -j 4 src/ tests/",
-            "phpunit --colors=always --testdox --testsuite InvertColor",
-            "phpstan analyze --ansi src tests --level=max",
-            "psalm --long-progress --stats",
-            "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no ."
+            "@lint",
+            "@phpunit",
+            "@phpstan",
+            "@psalm",
+            "@phpcs"
         ],
         "ut": [
-            "phpunit --colors=always --testdox --testsuite InvertColor"
+            "@phpunit"
         ]
     },
     "scripts-descriptions": {
-        "test": "Validate and test the whole library.",
-        "ut": "Run unit tests only."
+        "lint": "Runs a PHP linter to check the syntax",
+        "phpcs": "Runs coding style test suite",
+        "phpstan": "Runs complete codebase static analysis using PHPStan",
+        "phpunit": "Runs unit tests",
+        "psalm": "Runs complete codebase static analysis using Psalm",
+        "test": "Validates and tests the whole library.",
+        "ut": "Runs unit tests only."
     }
 }
