@@ -56,6 +56,9 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invertAsObj()->getHex());
     }
 
+    /**
+     * @return iterable<array<string>>
+     */
     public function colorProvider(): iterable
     {
         yield ['#ffffff', '#000000'];
@@ -133,6 +136,9 @@ class ColorTest extends TestCase
         Color::fromHex($hex);
     }
 
+    /**
+     * @return iterable<array<string>>
+     */
     public function invalidColorProvider(): iterable
     {
         yield ['#0000001'];
@@ -156,6 +162,9 @@ class ColorTest extends TestCase
         static::assertEquals($rgb, $color->getRGB());
     }
 
+    /**
+     * @return iterable<array<int>>
+     */
     public function validRGBProvider(): iterable
     {
         yield [0, 0, 0];
@@ -168,7 +177,7 @@ class ColorTest extends TestCase
      * @dataProvider invalidRGBProvider
      * @testdox testExceptionWithInvalidRGB: $explanation ($_testdoxMessage)
      *
-     * @param array $rgb
+     * @param array<mixed> $rgb
      * @param string $explanation
      * @param string $_testdoxMessage
      */
@@ -179,6 +188,9 @@ class ColorTest extends TestCase
         Color::fromRGB($rgb);
     }
 
+    /**
+     * @return iterable<array<mixed>>
+     */
     public function invalidRGBProvider(): iterable
     {
         $explanation = 'must contain 3 values exactly';
@@ -221,6 +233,9 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invert(true));
     }
 
+    /**
+     * @return iterable<array<mixed>>
+     */
     public function blackOrWhiteProvider(): iterable
     {
         foreach (self::getBrightColors() as $hex) {
@@ -236,7 +251,7 @@ class ColorTest extends TestCase
      * @testdox testInvertColorToBlackOrWhiteAsRGB: $hex
      *
      * @param string $hex
-     * @param array $expected
+     * @param array<int> $expected
      */
     public function testInvertColorToBlackOrWhiteAsRGB(string $hex, array $expected): void
     {
@@ -244,6 +259,9 @@ class ColorTest extends TestCase
         static::assertEquals($expected, $color->invertAsRGB(true));
     }
 
+    /**
+     * @return iterable<array<mixed>>
+     */
     public function blackOrWhiteAsRGBProvider(): iterable
     {
         foreach (self::getBrightColors() as $hex) {
@@ -268,6 +286,9 @@ class ColorTest extends TestCase
         static::assertEquals(!$expected, $color->isDark());
     }
 
+    /**
+     * @return iterable<array<mixed>>
+     */
     public function isBrightProvider(): iterable
     {
         foreach (self::getBrightColors() as $hex) {
@@ -278,6 +299,9 @@ class ColorTest extends TestCase
         }
     }
 
+    /**
+     * @return iterable<string>
+     */
     private static function getBrightColors(): iterable
     {
         yield '#e71398';
@@ -288,6 +312,9 @@ class ColorTest extends TestCase
         yield '#fff';
     }
 
+    /**
+     * @return iterable<string>
+     */
     private static function getDarkColors(): iterable
     {
         yield '#631746';

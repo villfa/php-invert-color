@@ -9,13 +9,13 @@ use UnexpectedValueException;
 class InvalidRGBException extends UnexpectedValueException implements ColorException
 {
     /**
-     * @var array
+     * @var array<mixed>
      */
     private $value;
 
     /**
      * @param string $explanation
-     * @param array $value
+     * @param array<mixed> $value
      */
     public function __construct(string $explanation, array $value)
     {
@@ -24,7 +24,7 @@ class InvalidRGBException extends UnexpectedValueException implements ColorExcep
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getValue(): array
     {

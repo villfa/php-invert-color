@@ -204,7 +204,7 @@ class Color
     /**
      * @static
      *
-     * @param array $rgb
+     * @param array<mixed> $rgb
      *
      * @throws InvalidRGBException
      */
