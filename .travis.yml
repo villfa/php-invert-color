@@ -8,6 +8,7 @@ matrix:
     - php: '7.4'
       env: FULL_TEST='true'
     - php: nightly
+      env: COMPOSER_OPTIONS='--ignore-platform-reqs'
   fast_finish: true
   allow_failures:
   - php: nightly
@@ -18,7 +19,7 @@ cache:
 
 before_script:
  - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
- - composer install --ignore-platform-reqs
+ - composer install $COMPOSER_OPTIONS
 
 script:
   - |
