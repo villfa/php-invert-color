@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/villfa/php-invert-color.png?branch=master)](http://travis-ci.org/villfa/php-invert-color)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=villfa_php-invert-color&metric=alert_status)](https://sonarcloud.io/dashboard?id=villfa_php-invert-color)
 [![Latest Stable Version](https://poser.pugx.org/villfa/invert-color/v/stable)](https://packagist.org/packages/villfa/invert-color)
-[![License](https://poser.pugx.org/villfa/invert-color/license)](https://packagist.org/packages/villfa/invert-color)
+[![License](https://poser.pugx.org/villfa/invert-color/license)](./LICENSE)
 [![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
 
 invert hex color code
