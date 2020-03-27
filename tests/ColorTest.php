@@ -61,14 +61,14 @@ class ColorTest extends TestCase
      */
     public function colorProvider(): iterable
     {
-        yield ['#ffffff', '#000000'];
-        yield ['#000000', '#ffffff'];
-        yield ['ffffff', '#000000'];
-        yield ['000000', '#ffffff'];
-        yield ['#fff', '#000000'];
-        yield ['#000', '#ffffff'];
-        yield ['fff', '#000000'];
-        yield ['000', '#ffffff'];
+        yield [self::WHITE, self::BLACK];
+        yield [self::BLACK, self::WHITE];
+        yield ['ffffff', self::BLACK];
+        yield ['000000', self::WHITE];
+        yield ['#fff', self::BLACK];
+        yield ['#000', self::WHITE];
+        yield ['fff', self::BLACK];
+        yield ['000', self::WHITE];
         yield ['#201395', '#dfec6a'];
         yield ['#840133', '#7bfecc'];
         yield ['#6ec6c8', '#913937'];
