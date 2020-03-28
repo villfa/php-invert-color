@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace InvertColor;
 
+use InvertColor\Color\HexColor;
+use InvertColor\Color\InternalColor;
+use InvertColor\Color\RGBColor;
 use InvertColor\Exceptions\InvalidColorFormatException;
 use InvertColor\Exceptions\InvalidRGBException;
 
 use function count;
-use function dechex;
 use function is_int;
 use function preg_match;
 use function strlen;
-use function str_pad;
-
-use const STR_PAD_LEFT;
 
 class Color
 {
@@ -34,16 +33,16 @@ class Color
     ];
 
     /**
-     * @var int[]
+     * @var InternalColor
      */
-    private $rgb;
+    private $internalColor;
 
     /**
-     * @param int[] $rgb
+     * @param InternalColor $internalColor
      */
-    private function __construct(array $rgb)
+    private function __construct(InternalColor $internalColor)
     {
-        $this->rgb = $rgb;
+        $this->internalColor = $internalColor;
     }
 
     /**
@@ -57,7 +56,18 @@ class Color
      */
     public static function fromHex(string $hex): self
     {
-        return new self(self::hexToRGB($hex));
+        $hexLength = strlen($hex);
+        $regex = self::REGEX_BY_LENGTH[$hexLength] ?? '';
+        $m = [];
+        if ($regex === '' || preg_match($regex, $hex, $m) !== 1) {
+            throw new InvalidColorFormatException($hex);
+        }
+
+        return new self(
+            $hexLength > 4
+            ? new HexColor($m[1] . $m[2] . $m[3])
+            : new HexColor($m[1] . $m[1] . $m[2] . $m[2] . $m[3] . $m[3])
+        );
     }
 
     /**
@@ -73,7 +83,7 @@ class Color
     {
         self::checkRGB($rgb);
 
-        return new self($rgb);
+        return new self(new RGBColor($rgb));
     }
 
     /**
@@ -81,7 +91,7 @@ class Color
      */
     public function getRGB(): array
     {
-        return $this->rgb;
+        return $this->internalColor->getRGB();
     }
 
     /**
@@ -89,10 +99,7 @@ class Color
      */
     public function getHex(): string
     {
-        return '#'.
-            str_pad(dechex($this->rgb[0]), 2, '0', STR_PAD_LEFT).
-            str_pad(dechex($this->rgb[1]), 2, '0', STR_PAD_LEFT).
-            str_pad(dechex($this->rgb[2]), 2, '0', STR_PAD_LEFT);
+        return '#' . $this->internalColor->getHex();
     }
 
     /**
@@ -106,10 +113,7 @@ class Color
             return $this->isBright() ? '#000000' : '#ffffff';
         }
 
-        return '#'.
-            self::inv($this->rgb[0]).
-            self::inv($this->rgb[1]).
-            self::inv($this->rgb[2]);
+        return '#' . $this->internalColor->invert()->getHex();
     }
 
     /**
@@ -123,11 +127,7 @@ class Color
             return $this->isBright() ? [0, 0, 0] : [255, 255, 255];
         }
 
-        return [
-            255 - $this->rgb[0],
-            255 - $this->rgb[1],
-            255 - $this->rgb[2],
-        ];
+        return $this->internalColor->invert()->getRGB();
     }
 
     /**
@@ -137,7 +137,11 @@ class Color
      */
     public function invertAsObj(bool $bw = false): self
     {
-        return new self($this->invertAsRGB($bw));
+        if ($bw) {
+            return new self(new RGBColor($this->isBright() ? [0, 0, 0] : [255, 255, 255]));
+        }
+
+        return new self($this->internalColor->invert());
     }
 
     /**
@@ -148,7 +152,7 @@ class Color
     public function getLuminance(): float
     {
         $levels = [];
-        foreach ($this->rgb as $i => $channel) {
+        foreach ($this->internalColor->getRGB() as $i => $channel) {
             $coef = $channel / 255;
             $levels[$i] = $coef <= 0.03928 ? $coef / 12.92 : (($coef + 0.055) / 1.055) ** 2.4;
         }
@@ -175,35 +179,6 @@ class Color
     /**
      * @static
      *
-     * @param string $hex
-     *
-     * @throws InvalidColorFormatException
-     *
-     * @return int[]
-     */
-    private static function hexToRGB(string $hex): array
-    {
-        $hexLength = strlen($hex);
-        $regex = self::REGEX_BY_LENGTH[$hexLength] ?? '';
-        $match = [];
-        if ($regex === '' || preg_match($regex, $hex, $match) !== 1) {
-            throw new InvalidColorFormatException($hex);
-        }
-
-        return $hexLength > 4 ? [
-            (int) hexdec($match[1]),
-            (int) hexdec($match[2]),
-            (int) hexdec($match[3]),
-        ] : [
-            (int) hexdec($match[1].$match[1]),
-            (int) hexdec($match[2].$match[2]),
-            (int) hexdec($match[3].$match[3]),
-        ];
-    }
-
-    /**
-     * @static
-     *
      * @param array<mixed> $rgb
      *
      * @throws InvalidRGBException
@@ -225,17 +200,5 @@ class Color
         if ($rgb[0] > 255 || $rgb[1] > 255 || $rgb[2] > 255) {
             throw new InvalidRGBException('values must be lesser or equal to 255', $rgb);
         }
-    }
-
-    /**
-     * @param int $channel
-     *
-     * @return string
-     */
-    private static function inv(int $channel): string
-    {
-        $inverted = dechex(255 - $channel);
-
-        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
     }
 }
