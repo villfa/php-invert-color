@@ -43,7 +43,7 @@
         "vimeo/psalm": "^3.4"
     },
     "scripts": {
-        "lint": "parallel-lint -j 4 src/ tests/",
+        "lint": "parallel-lint -j 4 src/ tests/ scripts/",
         "phpcs": "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no .",
         "phpstan": "phpstan analyze --ansi src tests --level=max",
         "phpunit": "phpunit --colors=always --testdox --testsuite InvertColor",
