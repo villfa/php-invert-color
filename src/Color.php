@@ -9,12 +9,10 @@ use InvertColor\Exceptions\InvalidRGBException;
 
 use function count;
 use function dechex;
+use function hexdec;
 use function is_int;
 use function preg_match;
 use function strlen;
-use function str_pad;
-
-use const STR_PAD_LEFT;
 
 class Color
 {
@@ -90,9 +88,9 @@ class Color
     public function getHex(): string
     {
         return '#'.
-            str_pad(dechex($this->rgb[0]), 2, '0', STR_PAD_LEFT).
-            str_pad(dechex($this->rgb[1]), 2, '0', STR_PAD_LEFT).
-            str_pad(dechex($this->rgb[2]), 2, '0', STR_PAD_LEFT);
+            ($this->rgb[0] > 15 ? dechex($this->rgb[0]) : '0' . dechex($this->rgb[0])).
+            ($this->rgb[1] > 15 ? dechex($this->rgb[1]) : '0' . dechex($this->rgb[1])).
+            ($this->rgb[2] > 15 ? dechex($this->rgb[2]) : '0' . dechex($this->rgb[2]));
     }
 
     /**
@@ -236,6 +234,6 @@ class Color
     {
         $inverted = dechex(255 - $channel);
 
-        return str_pad($inverted, 2, '0', STR_PAD_LEFT);
+        return $channel > 239 ? '0' . $inverted : $inverted;
     }
 }
