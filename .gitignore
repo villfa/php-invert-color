@@ -2,6 +2,7 @@ composer
 composer.phar
 composer.lock
 /vendor/
+/reports/
 
 phpunit.xml
 phpstan.neon

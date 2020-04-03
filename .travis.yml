@@ -1,30 +1,40 @@
 language: php
+dist: trusty
+sudo: false
+addons:
+  sonarcloud:
+    organization: villfa
+    token:
+      secure: XgIXH36OAZVpmp5oKp23mD81lxzI14xZm9I8xNTX55Qd9eSnxp+qcXiBdPPwP0QjRECjYlSYNQMquSLVa7WmLDfLRHyL63b633ceecnuVdjGCHEEee0AQuXmHtlHTbPfd38R/UtRdgQUb0p6+0saNDnR27EQlXBp/8S/hzk9QMl5UT7pOZ3X0tUt22KVvxqZK633Y46eGTYFWW+PYcyi93BxgxPCGRm2vZvBnCe4xrjB6sRB7r/XN49OQhDkOe47enT5L5SxlvJg/IE0PQnvuPwlOqYMC5G3QJC0mxSFOeI1KUvUIOr8ffvPnfoUVpGLhJI6b0upxNAY+DazBBS5Wk6O9qyNpCn+75KzYlbp997f9z3aValThsBPtXEnx4+wXXmtXmLSBWp11k2ELSaq5mKg0BpUqzt9nvcc+HwFNFzA8NSQEZoJOpCtxVOBTs1vsc0QHJiaaXelh31LeaGhsoDfJe8Gu7Eqj4zujT2LyZgu8mMdDJaDC0EqP2Nvf8a7RTUOWBJY3MyyNfAMpiCLlgko/wcbWsmfuAsyKzbePf99wrVJOYUyHcx3W7gLOTNTzBu9kZTx8fbpF/vXKidwnmHZUxGs/f7Lf9rPjG20CZiZQ1RVRKEdwmI/rT94sD6d+JspUekUKF2phF+z0LVUQADLWJ4dc4JqyCX75BjkJ3k=
 
+git:
+  depth: false
 matrix:
   include:
-    - php: '7.1'
-    - php: '7.2'
-    - php: '7.3'
-    - php: '7.4'
-      env: FULL_TEST='true'
-    - php: nightly
-      env: COMPOSER_OPTIONS='--ignore-platform-reqs'
+  - php: '7.1'
+  - php: '7.2'
+  - php: '7.3'
+  - php: '7.4'
+    env: FULL_TEST='true'
+  - php: nightly
+    env: COMPOSER_OPTIONS='--ignore-platform-reqs'
   fast_finish: true
   allow_failures:
   - php: nightly
 
 cache:
   directories:
-    - $HOME/.composer/cache
+    - "$HOME/.composer/cache"
 
 before_script:
- - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
- - composer install $COMPOSER_OPTIONS
+- composer install $COMPOSER_OPTIONS
 
 script:
-  - |
-    if [ "$FULL_TEST" == "true" ]; then
-      composer run-script test
-    else
-      composer run-script ut
-    fi
+- |
+  if [ "$FULL_TEST" == "true" ]; then
+    composer run-script test && \
+    composer run-script ut -- --coverage-clover=reports/coverage.clover --log-junit=reports/test.xml && \
+    sonar-scanner -X
+  else
+    composer run-script ut
+  fi
