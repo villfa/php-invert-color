@@ -35,7 +35,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
-        "jakub-onderka/php-parallel-lint": "^1.0",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
         "phpstan/phpstan-strict-rules": "^0.12",
