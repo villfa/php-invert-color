@@ -1,6 +1,6 @@
 language: php
+os: linux
 dist: bionic
-sudo: false
 addons:
   sonarcloud:
     organization: villfa
@@ -9,7 +9,7 @@ addons:
 
 git:
   depth: false
-matrix:
+jobs:
   include:
   - php: '7.1'
   - php: '7.2'
