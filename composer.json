@@ -23,9 +23,6 @@
     "require": {
         "php": ">=7.1"
     },
-    "replace": {
-        "symfony/polyfill-php70": "*"
-    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
         "php-parallel-lint/php-parallel-lint": "^1.2",
@@ -33,7 +30,7 @@
         "phpstan/phpstan-phpunit": "^0.12",
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-        "vimeo/psalm": "^3.4"
+        "vimeo/psalm": "^3.4 || ^4.0"
     },
     "config": {
         "optimize-autoloader": true,
