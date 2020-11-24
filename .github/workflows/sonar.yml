@@ -34,8 +34,8 @@ jobs:
     - name: "Fix code coverage paths"
       working-directory: ./reports
       run: |
-        sed -i 's/\/home\/runner\/work\/php-invert-color\/php-invert-color\///g' coverage.clover
-        sed -i 's/\/home\/runner\/work\/php-invert-color\/php-invert-color\///g' test.xml
+        sed -i 's/\/home\/runner\/work\/${{ github.event.repository.name }}\/${{ github.event.repository.name }}\///g' coverage.clover
+        sed -i 's/\/home\/runner\/work\/${{ github.event.repository.name }}\/${{ github.event.repository.name }}\///g' test.xml
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
