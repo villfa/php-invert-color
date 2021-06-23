@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - '**.md'
       - 'scripts/**'
+      - '.editorconfig'
       - '.gitattributes'
       - '.gitignore'
       - 'LICENSE'
@@ -14,6 +15,7 @@ on:
     paths-ignore:
       - '**.md'
       - 'scripts/**'
+      - '.editorconfig'
       - '.gitattributes'
       - '.gitignore'
       - 'LICENSE'
