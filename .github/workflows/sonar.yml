@@ -6,8 +6,18 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'sonar-project.properties'
+      - '.github/workflows/sonar.yml'
   pull_request:
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'sonar-project.properties'
+      - '.github/workflows/sonar.yml'
 
 jobs:
   sonarcloud:
