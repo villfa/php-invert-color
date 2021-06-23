@@ -1,6 +1,22 @@
 name: "Continuous Integration"
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'scripts/**'
+      - '.gitattributes'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'sonar-project.properties'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'scripts/**'
+      - '.gitattributes'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'sonar-project.properties'
 
 jobs:
   unittest:
