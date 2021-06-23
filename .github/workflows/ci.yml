@@ -9,6 +9,7 @@ on:
       - '.gitignore'
       - 'LICENSE'
       - 'sonar-project.properties'
+      - '.github/workflows/sonar.yml'
   pull_request:
     paths-ignore:
       - '**.md'
@@ -17,6 +18,7 @@ on:
       - '.gitignore'
       - 'LICENSE'
       - 'sonar-project.properties'
+      - '.github/workflows/sonar.yml'
 
 jobs:
   unittest:
