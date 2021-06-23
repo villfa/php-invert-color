@@ -40,12 +40,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: "Install dependencies"
-        if: "matrix.php-version != '8.0'"
         run: "composer install --no-interaction --no-progress --prefer-dist"
-
-      - name: "Install dependencies ignoring PHP requirement"
-        if: "matrix.php-version == '8.0'"
-        run: "composer update --no-interaction --no-progress --prefer-dist --ignore-platform-req=php"
 
       - name: "Run the unit-tests"
         run: "composer ut"
