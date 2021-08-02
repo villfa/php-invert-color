@@ -19,6 +19,8 @@ on:
       - 'LICENSE'
       - 'scripts/**'
       - 'sonar-project.properties'
+  # Allow manually triggering the workflow
+  workflow_dispatch:
 
 jobs:
   unittest:
