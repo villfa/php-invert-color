@@ -18,6 +18,8 @@ on:
       - 'tests/**'
       - 'sonar-project.properties'
       - '.github/workflows/sonar.yml'
+  # Allow manually triggering the workflow
+  workflow_dispatch:
 
 jobs:
   sonarcloud:
