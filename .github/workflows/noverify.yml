@@ -1,0 +1,53 @@
+name: "NoVerify"
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.github/workflows/sonar.yml'
+      - 'LICENSE'
+      - 'scripts/**'
+      - 'sonar-project.properties'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.github/workflows/sonar.yml'
+      - 'LICENSE'
+      - 'scripts/**'
+      - 'sonar-project.properties'
+  # Allow manually triggering the workflow
+  workflow_dispatch:
+
+jobs:
+  noverify:
+    name: "Analyze with NoVerify"
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          ini-values: "error_reporting=E_ALL, display_errors=On"
+          tools: composer:v2
+          php-version: "8.0"
+
+      - name: "Install dependencies"
+        run: "composer install --no-interaction --no-progress --prefer-dist"
+
+      - name: "Install NoVerify"
+        run: |
+          composer require --dev vkcom/noverify
+          ./vendor/bin/noverify-get
+
+      - name: "Run NoVerify"
+        run: "./vendor/bin/noverify check ./src"
+
