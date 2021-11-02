@@ -185,6 +185,7 @@ class ColorTest extends TestCase
     {
         $expectedException = new InvalidRGBException($explanation, $rgb);
         $this->expectExceptionObject($expectedException);
+        // @phpstan-ignore-next-line
         Color::fromRGB($rgb);
     }
 
