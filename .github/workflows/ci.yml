@@ -73,11 +73,12 @@ jobs:
         run: "composer install --no-interaction --no-progress --prefer-dist"
 
       - name: "Run the unit-tests"
+        if: ${{ !matrix.phpunit-args || !github.event.inputs.random-seed }}
         run: "composer ut -- ${{ matrix.phpunit-args }}"
 
       - name: "Run the unit-tests with random seed"
         if: ${{ matrix.phpunit-args && github.event.inputs.random-seed }}
-        run: "composer ut -- --random-order-seed ${{ github.event.inputs.random-seed }}"
+        run: "composer ut -- ${{ matrix.phpunit-args }} --random-order-seed ${{ github.event.inputs.random-seed }}"
 
   fulltest:
     name: "Run all tests (8.0)"
