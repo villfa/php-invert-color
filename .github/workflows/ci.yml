@@ -6,6 +6,7 @@ on:
       - '**.md'
       - '.editorconfig'
       - '.gitattributes'
+      - '.github/workflows/noverify.yml'
       - '.github/workflows/sonar.yml'
       - 'LICENSE'
       - 'scripts/**'
@@ -15,12 +16,18 @@ on:
       - '**.md'
       - '.editorconfig'
       - '.gitattributes'
+      - '.github/workflows/noverify.yml'
       - '.github/workflows/sonar.yml'
       - 'LICENSE'
       - 'scripts/**'
       - 'sonar-project.properties'
   # Allow manually triggering the workflow
   workflow_dispatch:
+    inputs:
+      random-seed:
+        description: 'PHPUnit''s random seed'
+        required: false
+        default: ''
 
 jobs:
   unittest:
@@ -36,6 +43,12 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.1"
+        phpunit-args: ['']
+        include:
+          - php-version: "8.0"
+            phpunit-args: "--order-by random"
+          - php-version: "8.1"
+            phpunit-args: "--process-isolation"
 
     steps:
       - name: "Checkout"
@@ -45,7 +58,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          ini-values: "error_reporting=E_ALL, display_errors=On"
+          ini-values: "error_reporting=E_ALL, display_errors=On, display_startup_errors=On"
           tools: "composer:v2"
           php-version: "${{ matrix.php-version }}"
 
@@ -65,7 +78,12 @@ jobs:
         run: "composer install --no-interaction --no-progress --prefer-dist"
 
       - name: "Run the unit-tests"
-        run: "composer ut"
+        if: ${{ !contains(matrix.phpunit-args, '--order-by random') || !github.event.inputs.random-seed }}
+        run: "composer ut -- ${{ matrix.phpunit-args }}"
+
+      - name: "Run the unit-tests with random seed"
+        if: ${{ contains(matrix.phpunit-args, '--order-by random') && github.event.inputs.random-seed }}
+        run: "composer ut -- ${{ matrix.phpunit-args }} --random-order-seed ${{ github.event.inputs.random-seed }}"
 
   fulltest:
     name: "Run all tests (8.0)"
@@ -80,7 +98,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          ini-values: "error_reporting=E_ALL, display_errors=On"
+          ini-values: "error_reporting=E_ALL, display_errors=On, display_startup_errors=On"
           tools: composer:v2, composer-normalize
           php-version: "8.0"
 
