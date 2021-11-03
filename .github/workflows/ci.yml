@@ -21,6 +21,11 @@ on:
       - 'sonar-project.properties'
   # Allow manually triggering the workflow
   workflow_dispatch:
+    inputs:
+      random-seed:
+        description: 'PHPUnit''s random seed'
+        required: false
+        default: ''
 
 jobs:
   unittest:
@@ -69,6 +74,10 @@ jobs:
 
       - name: "Run the unit-tests"
         run: "composer ut -- ${{ matrix.phpunit-args }}"
+
+      - name: "Run the unit-tests with random seed"
+        if: ${{ matrix.phpunit-args && github.event.inputs.random-seed }}
+        run: "composer ut -- --random-order-seed ${{ github.event.inputs.random-seed }}"
 
   fulltest:
     name: "Run all tests (8.0)"
