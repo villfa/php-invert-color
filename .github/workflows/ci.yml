@@ -44,6 +44,8 @@ jobs:
         include:
           - php-version: "8.0"
             phpunit-args: "--order-by random"
+          - php-version: "8.1"
+            phpunit-args: "--process-isolation"
 
     steps:
       - name: "Checkout"
@@ -73,11 +75,11 @@ jobs:
         run: "composer install --no-interaction --no-progress --prefer-dist"
 
       - name: "Run the unit-tests"
-        if: ${{ !matrix.phpunit-args || !github.event.inputs.random-seed }}
+        if: ${{ !contains(matrix.phpunit-args, '--order-by random') || !github.event.inputs.random-seed }}
         run: "composer ut -- ${{ matrix.phpunit-args }}"
 
       - name: "Run the unit-tests with random seed"
-        if: ${{ matrix.phpunit-args && github.event.inputs.random-seed }}
+        if: ${{ contains(matrix.phpunit-args, '--order-by random') && github.event.inputs.random-seed }}
         run: "composer ut -- ${{ matrix.phpunit-args }} --random-order-seed ${{ github.event.inputs.random-seed }}"
 
   fulltest:
