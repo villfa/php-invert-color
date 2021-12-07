@@ -1,7 +1,10 @@
 {
     "name": "villfa/invert-color",
-    "type": "library",
     "description": "InvertColor - invert hex color code",
+    "license": [
+        "MIT"
+    ],
+    "type": "library",
     "keywords": [
         "color",
         "colour",
@@ -10,16 +13,13 @@
         "reverse",
         "opposite"
     ],
-    "homepage": "https://github.com/villfa/php-invert-color",
-    "license": [
-        "MIT"
-    ],
     "authors": [
         {
             "name": "Fabien VILLEPINTE",
             "email": "fabien.villepinte@gmail.com"
         }
     ],
+    "homepage": "https://github.com/villfa/php-invert-color",
     "require": {
         "php": ">=7.1"
     },
@@ -32,10 +32,8 @@
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
         "vimeo/psalm": "^4.7"
     },
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true
-    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "InvertColor\\": "src/"
@@ -46,8 +44,10 @@
             "InvertColor\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
     "scripts": {
         "lint": "parallel-lint -j 4 src/ tests/ scripts/",
         "phpcs": "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no .",
