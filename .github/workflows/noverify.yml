@@ -3,7 +3,7 @@ name: "NoVerify"
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**.md'
       - '.editorconfig'
