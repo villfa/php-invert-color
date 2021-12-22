@@ -2,6 +2,8 @@ name: "NoVerify"
 
 on:
   push:
+    branches:
+      - master
     paths-ignore:
       - '**.md'
       - '.editorconfig'
@@ -27,7 +29,6 @@ on:
 jobs:
   noverify:
     name: "Analyze with NoVerify"
-
     runs-on: "ubuntu-latest"
 
     steps:

@@ -23,7 +23,9 @@ on:
 
 jobs:
   sonarcloud:
+    name: "Analyze with Sonar"
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
