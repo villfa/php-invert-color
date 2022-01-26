@@ -54,7 +54,7 @@
     "scripts": {
         "lint": "parallel-lint -j 4 src/ tests/ scripts/",
         "phpcs": "php-cs-fixer --ansi fix --rules=@PSR2 -v --dry-run --stop-on-violation --using-cache=no .",
-        "phpstan": "phpstan analyze --ansi src tests --level=max",
+        "phpstan": "phpstan",
         "phpunit": "phpunit --colors=always --testdox --testsuite InvertColor",
         "psalm": "psalm --long-progress --stats",
         "test": [
