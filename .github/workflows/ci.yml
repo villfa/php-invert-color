@@ -44,6 +44,7 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.1"
+          - "8.2"
         phpunit-args: ['']
         include:
           - php-version: "8.0"
