@@ -44,6 +44,7 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.1"
+          - "8.2"
         phpunit-args: ['']
         include:
           - php-version: "8.0"
@@ -62,6 +63,10 @@ jobs:
           ini-values: "error_reporting=-1, display_errors=On, display_startup_errors=On, zend.assertions=1"
           tools: "composer:v2"
           php-version: "${{ matrix.php-version }}"
+
+      -   name: Configure Composer for PHP 8.2
+          run: composer config platform.php 8.1.99
+          if: matrix.php-version == '8.2'
 
       - name: Get Composer Cache Directory
         id: composer-cache
