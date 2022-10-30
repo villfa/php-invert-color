@@ -16,7 +16,29 @@ class InvalidColorFormatExceptionTest extends TestCase
         $exception = new InvalidColorFormatException('foo/bar');
         static::assertEquals('foo/bar', $exception->getValue());
         static::assertEquals('Invalid color format: foo/bar', $exception->getMessage());
-        static::assertInstanceOf(ColorException::class, $exception);
-        static::assertInstanceOf(UnexpectedValueException::class, $exception);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testCanBeCaughtAsColorException(): void
+    {
+        try {
+            throw new InvalidColorFormatException('foo/bar');
+        } catch (ColorException $exception) {
+            return;
+        }
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testCanBeCaughtAsUnexpectedValueExpection(): void
+    {
+        try {
+            throw new InvalidColorFormatException('foo/bar');
+        } catch (UnexpectedValueException $exception) {
+            return;
+        }
     }
 }

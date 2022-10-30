@@ -16,7 +16,29 @@ class InvalidRGBExceptionTest extends TestCase
         $exception = new InvalidRGBException('wrong content', ['foo' => 'bar']);
         static::assertEquals(['foo' => 'bar'], $exception->getValue());
         static::assertEquals('Invalid RGB: wrong content', $exception->getMessage());
-        static::assertInstanceOf(ColorException::class, $exception);
-        static::assertInstanceOf(UnexpectedValueException::class, $exception);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testCanBeCaughtAsColorException(): void
+    {
+        try {
+            throw new InvalidRGBException('wrong content', ['foo' => 'bar']);
+        } catch (ColorException $exception) {
+            return;
+        }
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testCanBeCaughtAsUnexpectedValueExpection(): void
+    {
+        try {
+            throw new InvalidRGBException('wrong content', ['foo' => 'bar']);
+        } catch (UnexpectedValueException $exception) {
+            return;
+        }
     }
 }
