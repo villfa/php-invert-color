@@ -45,11 +45,12 @@ jobs:
           - "7.4"
           - "8.1"
           - "8.2"
+          - "8.3"
         phpunit-args: ['']
         include:
-          - php-version: "8.0"
-            phpunit-args: "--order-by random"
           - php-version: "8.1"
+            phpunit-args: "--order-by random"
+          - php-version: "8.2"
             phpunit-args: "--process-isolation"
 
     steps:
@@ -92,7 +93,7 @@ jobs:
         run: "composer ut -- ${{ matrix.phpunit-args }} --random-order-seed ${{ github.event.inputs.random-seed }}"
 
   fulltest:
-    name: "Run all tests (8.0)"
+    name: "Run all tests (8.1)"
     runs-on: "ubuntu-latest"
 
     steps:
@@ -105,7 +106,7 @@ jobs:
           coverage: "none"
           ini-values: "error_reporting=-1, display_errors=On, display_startup_errors=On, zend.assertions=1"
           tools: composer:v2, composer-normalize
-          php-version: "8.0"
+          php-version: "8.1"
 
       - name: "Install dependencies"
         run: "composer install --no-interaction --no-progress --prefer-dist"
